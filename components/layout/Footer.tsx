@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { supabase } from "@/lib/supabase";
+import type { Profile } from "@/types/database";
 
 const NAV_LINKS = [
   { href: "/about",      label: "About"      },
@@ -25,10 +26,10 @@ const LinkedInIcon = () => (
 export default async function Footer() {
   const { data: profile } = await supabase
     .from("profile")
-    .select("name, email, location, github_url, linkedin_url")
+    .select("*")
     .order("updated_at", { ascending: false })
     .limit(1)
-    .single();
+    .single() as { data: Profile | null };
 
   const socialLinks = [
     { label: "GitHub",   href: profile?.github_url,   icon: <GitHubIcon />   },
