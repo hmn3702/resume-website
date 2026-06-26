@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+    --accent: 20 184 166; /* teal-500 */
+    --accent-light: 204 251 241; /* teal-100 */
+    --muted: 100 116 139; /* slate-500 */
+    --border: 226 232 240; /* slate-200 */
+    --card: 248 250 252; /* slate-50 */
+  }
+
+  .dark {
+    --background: 2 6 23; /* slate-950 */
+    --foreground: 248 250 252; /* slate-50 */
+    --accent: 45 212 191; /* teal-400 */
+    --accent-light: 19 78 74; /* teal-900 */
+    --muted: 148 163 184; /* slate-400 */
+    --border: 30 41 59; /* slate-800 */
+    --card: 15 23 42; /* slate-900 */
+  }
+
+  * {
+    @apply border-slate-200 dark:border-slate-800;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-50;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  ::selection {
+    @apply bg-teal-200 dark:bg-teal-800 text-slate-900 dark:text-slate-50;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-teal-500 to-teal-700 dark:from-teal-300 dark:to-teal-500 bg-clip-text text-transparent;
+  }
+
+  .section-container {
+    @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card {
+    @apply bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl;
+  }
+}
