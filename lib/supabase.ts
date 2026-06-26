@@ -8,7 +8,11 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "placeholde
  * Public browser client — uses anon key + RLS.
  * Safe to import in both Server Components and Client Components.
  */
-export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  global: {
+    fetch: (url, options = {}) => fetch(url, { ...options, cache: "no-store" }),
+  },
+});
 
 /**
  * Admin browser client — same anon key but exported separately so it's
