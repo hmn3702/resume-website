@@ -25,8 +25,8 @@ const LEVEL_DOTS: Record<Skill["level"], number> = {
 };
 
 const LEVEL_COLOUR: Record<Skill["level"], string> = {
-  beginner:     "bg-slate-300 dark:bg-slate-600",
-  intermediate: "bg-teal-300 dark:bg-teal-700",
+  beginner:     "bg-teal-300 dark:bg-teal-600",
+  intermediate: "bg-teal-400 dark:bg-teal-500",
   advanced:     "bg-teal-500",
   expert:       "bg-teal-600",
 };
