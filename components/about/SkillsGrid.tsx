@@ -68,6 +68,31 @@ export default function SkillsGrid({ skills }: Props) {
   };
 
   return (
+    <div className="space-y-4">
+      {/* Legend — sits above the grid, not inside a card */}
+      <p className="flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
+        {[
+          { label: "Beginner",     filled: 1 },
+          { label: "Intermediate", filled: 2 },
+          { label: "Advanced",     filled: 3 },
+          { label: "Expert",       filled: 4 },
+        ].map(({ label, filled }) => (
+          <span key={label} className="flex items-center gap-1">
+            <span className="flex gap-0.5">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <span
+                  key={i}
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    i < filled ? "bg-teal-500" : "bg-slate-200 dark:bg-slate-700"
+                  }`}
+                />
+              ))}
+            </span>
+            {label}
+          </span>
+        ))}
+      </p>
+
     <motion.div
       variants={containerVariants}
       initial="hidden"
@@ -113,29 +138,10 @@ export default function SkillsGrid({ skills }: Props) {
               ))}
             </motion.ul>
 
-            {/* Level legend — shown only on first card */}
-            {cat === categories[0] && (
-              <p className="text-xs text-slate-400 dark:text-slate-600 flex items-center gap-1">
-                <span className="flex gap-0.5">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <span key={i} className="w-1.5 h-1.5 rounded-full bg-teal-500" />
-                  ))}
-                </span>
-                = expert &nbsp;·&nbsp;
-                <span className="flex gap-0.5">
-                  {Array.from({ length: 4 }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={`w-1.5 h-1.5 rounded-full ${i < 1 ? "bg-teal-500" : "bg-slate-200 dark:bg-slate-700"}`}
-                    />
-                  ))}
-                </span>
-                = beginner
-              </p>
-            )}
           </motion.div>
         );
       })}
     </motion.div>
+    </div>
   );
 }
