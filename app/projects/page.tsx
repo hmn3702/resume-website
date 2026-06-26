@@ -73,16 +73,28 @@ export default async function ProjectsPage() {
                   </div>
                 )}
 
-                {project.url && (
-                  <Link
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors mt-auto"
-                  >
-                    View project →
-                  </Link>
-                )}
+                <div className="flex gap-4 mt-auto">
+                  {project.live_url && (
+                    <Link
+                      href={project.live_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-teal-600 dark:text-teal-400 hover:text-teal-700 dark:hover:text-teal-300 transition-colors"
+                    >
+                      Live demo →
+                    </Link>
+                  )}
+                  {project.github_url && (
+                    <Link
+                      href={project.github_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+                    >
+                      GitHub →
+                    </Link>
+                  )}
+                </div>
               </div>
             </article>
           ))}

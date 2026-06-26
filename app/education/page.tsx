@@ -75,9 +75,9 @@ export default async function EducationPage() {
                   <span className="text-xs text-slate-400 shrink-0">{cert.year}</span>
                 </div>
                 <p className="text-xs text-teal-600 dark:text-teal-400">{cert.issuer}</p>
-                {cert.url && (
+                {cert.credential_url && (
                   <a
-                    href={cert.url}
+                    href={cert.credential_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-xs text-slate-500 hover:text-teal-500 transition-colors underline underline-offset-2"

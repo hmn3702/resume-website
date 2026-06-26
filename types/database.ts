@@ -1,8 +1,8 @@
 /**
- * Supabase database types — auto-generate the real version with:
- *   npx supabase gen types typescript --project-id YOUR_PROJECT_ID > types/database.ts
+ * Supabase database types — matches the schema in supabase/01_create_tables.sql
  *
- * This file is a typed placeholder that matches the schema defined in Phase 2.
+ * To regenerate from your live project run:
+ *   npx supabase gen types typescript --project-id YOUR_PROJECT_ID > types/database.ts
  */
 
 export type Json =
@@ -23,17 +23,14 @@ export interface Database {
           title: string;
           bio: string | null;
           avatar_url: string | null;
+          cv_url: string | null;
           email: string | null;
           linkedin_url: string | null;
           github_url: string | null;
-          cv_url: string | null;
-          created_at: string;
+          location: string | null;
           updated_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["profile"]["Row"],
-          "id" | "created_at" | "updated_at"
-        >;
+        Insert: Omit<Database["public"]["Tables"]["profile"]["Row"], "id" | "updated_at">;
         Update: Partial<Database["public"]["Tables"]["profile"]["Insert"]>;
       };
       experience: {
@@ -41,16 +38,15 @@ export interface Database {
           id: string;
           role: string;
           company: string;
+          location: string | null;
           start_date: string;
           end_date: string | null;
+          is_current: boolean;
           description: string | null;
           order: number;
           created_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["experience"]["Row"],
-          "id" | "created_at"
-        >;
+        Insert: Omit<Database["public"]["Tables"]["experience"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["experience"]["Insert"]>;
       };
       education: {
@@ -61,12 +57,10 @@ export interface Database {
           field: string;
           start_year: number;
           end_year: number | null;
+          description: string | null;
           created_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["education"]["Row"],
-          "id" | "created_at"
-        >;
+        Insert: Omit<Database["public"]["Tables"]["education"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["education"]["Insert"]>;
       };
       skills: {
@@ -75,12 +69,10 @@ export interface Database {
           name: string;
           category: string;
           level: "beginner" | "intermediate" | "advanced" | "expert";
+          order: number;
           created_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["skills"]["Row"],
-          "id" | "created_at"
-        >;
+        Insert: Omit<Database["public"]["Tables"]["skills"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["skills"]["Insert"]>;
       };
       certifications: {
@@ -89,16 +81,12 @@ export interface Database {
           name: string;
           issuer: string;
           year: number;
-          url: string | null;
+          credential_url: string | null;
+          image_url: string | null;
           created_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["certifications"]["Row"],
-          "id" | "created_at"
-        >;
-        Update: Partial<
-          Database["public"]["Tables"]["certifications"]["Insert"]
-        >;
+        Insert: Omit<Database["public"]["Tables"]["certifications"]["Row"], "id" | "created_at">;
+        Update: Partial<Database["public"]["Tables"]["certifications"]["Insert"]>;
       };
       projects: {
         Row: {
@@ -106,16 +94,14 @@ export interface Database {
           title: string;
           description: string;
           tech_stack: string[];
-          url: string | null;
+          live_url: string | null;
+          github_url: string | null;
           image_url: string | null;
           featured: boolean;
           order: number;
           created_at: string;
         };
-        Insert: Omit<
-          Database["public"]["Tables"]["projects"]["Row"],
-          "id" | "created_at"
-        >;
+        Insert: Omit<Database["public"]["Tables"]["projects"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["projects"]["Insert"]>;
       };
     };
@@ -128,9 +114,9 @@ export interface Database {
 }
 
 // Convenience row types
-export type Profile = Database["public"]["Tables"]["profile"]["Row"];
-export type Experience = Database["public"]["Tables"]["experience"]["Row"];
-export type Education = Database["public"]["Tables"]["education"]["Row"];
-export type Skill = Database["public"]["Tables"]["skills"]["Row"];
+export type Profile       = Database["public"]["Tables"]["profile"]["Row"];
+export type Experience    = Database["public"]["Tables"]["experience"]["Row"];
+export type Education     = Database["public"]["Tables"]["education"]["Row"];
+export type Skill         = Database["public"]["Tables"]["skills"]["Row"];
 export type Certification = Database["public"]["Tables"]["certifications"]["Row"];
-export type Project = Database["public"]["Tables"]["projects"]["Row"];
+export type Project       = Database["public"]["Tables"]["projects"]["Row"];
