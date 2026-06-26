@@ -58,4 +58,100 @@
   .card {
     @apply bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl;
   }
+
+  /* Focus ring for accessibility */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-slate-950;
+  }
+}
+
+/* ── Hero animated gradient background ──────────────────────── */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-gradient {
+  background: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(20, 184, 166, 0.15) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 100%,
+      rgba(20, 184, 166, 0.08) 0%,
+      transparent 70%
+    );
+}
+
+.dark .hero-gradient {
+  background: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(45, 212, 191, 0.12) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 80% 100%,
+      rgba(45, 212, 191, 0.07) 0%,
+      transparent 70%
+    );
+}
+
+/* Floating orb blobs */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-20px) scale(1.04); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(15px) scale(0.97); }
+}
+
+.blob-1 {
+  animation: float-slow 8s ease-in-out infinite;
+}
+
+.blob-2 {
+  animation: float-medium 6s ease-in-out infinite;
+  animation-delay: -3s;
+}
+
+/* Avatar teal ring pulse */
+@keyframes ring-pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.6); }
+  50%       { box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.2); }
+}
+
+.avatar-ring {
+  animation: ring-pulse 3s ease-in-out infinite;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(148, 163, 184, 0.1) 25%,
+    rgba(148, 163, 184, 0.2) 50%,
+    rgba(148, 163, 184, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  @apply rounded-lg;
+}
+
+/* Scroll indicator bounce */
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%       { transform: translateY(6px); opacity: 0.5; }
+}
+
+.scroll-bounce {
+  animation: bounce-slow 2s ease-in-out infinite;
 }
