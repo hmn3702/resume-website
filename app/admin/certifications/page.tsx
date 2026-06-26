@@ -47,9 +47,12 @@ export default function AdminCertificationsPage() {
     e.preventDefault();
     setSaving(true);
     const payload = { ...form, credential_url: form.credential_url || null, image_url: form.image_url || null };
-    const { error } = editId
-      ? await supabase.from("certifications").update(payload).eq("id", editId)
-      : await supabase.from("certifications").insert(payload);
+    let error;
+    if (editId) {
+      ({ error } = await supabase.from("certifications").update(payload).eq("id", editId));
+    } else {
+      ({ error } = await supabase.from("certifications").insert(payload));
+    }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);

@@ -44,9 +44,12 @@ export default function AdminEducationPage() {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const { error } = editId
-      ? await supabase.from("education").update(form).eq("id", editId)
-      : await supabase.from("education").insert(form);
+    let error;
+    if (editId) {
+      ({ error } = await supabase.from("education").update(form).eq("id", editId));
+    } else {
+      ({ error } = await supabase.from("education").insert(form));
+    }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);

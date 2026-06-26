@@ -71,9 +71,12 @@ export default function AdminProjectsPage() {
       featured: form.featured,
       order: form.order,
     };
-    const { error } = editId
-      ? await supabase.from("projects").update(payload).eq("id", editId)
-      : await supabase.from("projects").insert(payload);
+    let error;
+    if (editId) {
+      ({ error } = await supabase.from("projects").update(payload).eq("id", editId));
+    } else {
+      ({ error } = await supabase.from("projects").insert(payload));
+    }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);

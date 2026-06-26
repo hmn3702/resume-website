@@ -69,9 +69,12 @@ export default function AdminExperiencePage() {
       end_date: form.is_current ? null : (form.end_date || null),
     };
 
-    const { error } = editId
-      ? await supabase.from("experience").update(payload).eq("id", editId)
-      : await supabase.from("experience").insert(payload);
+    let error;
+    if (editId) {
+      ({ error } = await supabase.from("experience").update(payload).eq("id", editId));
+    } else {
+      ({ error } = await supabase.from("experience").insert(payload));
+    }
 
     if (error) {
       toast.error(error.message);
