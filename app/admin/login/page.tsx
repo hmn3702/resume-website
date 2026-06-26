@@ -16,19 +16,28 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError(null);
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const { error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (authError) {
-      setError(authError.message);
+      if (authError) {
+        setError(authError.message);
+        setLoading(false);
+        return;
+      }
+
+      router.push("/admin/dashboard");
+      router.refresh();
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Connection failed. Check that Supabase env vars are set in Vercel."
+      );
       setLoading(false);
-      return;
     }
-
-    router.push("/admin/dashboard");
-    router.refresh();
   };
 
   return (
