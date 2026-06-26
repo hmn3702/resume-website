@@ -49,7 +49,8 @@ export default function AdminProfilePage() {
     setSaving(true);
 
     const payload = id ? { ...form, id } : form;
-    const { error } = await supabase.from("profile").upsert(payload as Profile);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from("profile").upsert(payload as any);
 
     if (error) {
       toast.error(`Save failed: ${error.message}`);

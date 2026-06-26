@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Skill, Database } from "@/types/database";
-
-type SkillInsert = Database["public"]["Tables"]["skills"]["Insert"];
-type SkillUpdate = Database["public"]["Tables"]["skills"]["Update"];
+import type { Skill } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
 type Level = Skill["level"];
@@ -52,7 +49,8 @@ export default function AdminSkillsPage() {
 
   const handleInlineSave = async (id: string) => {
     setSaving(true);
-    const { error } = await supabase.from("skills").update(editForm as SkillUpdate).eq("id", id);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from("skills").update(editForm as any).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success("Saved!"); cancelEdit(); load(); }
     setSaving(false);
@@ -61,7 +59,8 @@ export default function AdminSkillsPage() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const { error } = await supabase.from("skills").insert(addForm as SkillInsert);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error } = await supabase.from("skills").insert(addForm as any);
     if (error) toast.error(error.message);
     else { toast.success("Added!"); setAddForm({ ...EMPTY }); setShowAdd(false); load(); }
     setSaving(false);

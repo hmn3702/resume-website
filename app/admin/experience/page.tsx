@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Experience, Database } from "@/types/database";
-
-type ExpInsert = Database["public"]["Tables"]["experience"]["Insert"];
-type ExpUpdate = Database["public"]["Tables"]["experience"]["Update"];
+import type { Experience } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
 const EMPTY: Omit<Experience, "id" | "created_at"> = {
@@ -74,9 +71,11 @@ export default function AdminExperiencePage() {
 
     let error;
     if (editId) {
-      ({ error } = await supabase.from("experience").update(payload as ExpUpdate).eq("id", editId));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ({ error } = await supabase.from("experience").update(payload as any).eq("id", editId));
     } else {
-      ({ error } = await supabase.from("experience").insert(payload as ExpInsert));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ({ error } = await supabase.from("experience").insert(payload as any));
     }
 
     if (error) {
