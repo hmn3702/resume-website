@@ -26,7 +26,7 @@ export default function Navbar() {
           href="/"
           className="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-50 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
         >
-          QN<span className="text-teal-500">.</span>
+          NH<span className="text-teal-500">.</span>
         </Link>
 
         {/* Desktop links */}
