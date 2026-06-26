@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Profile } from "@/types/database";
+import type { Profile, Database } from "@/types/database";
+
+type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
 
@@ -50,7 +52,7 @@ export default function AdminProfilePage() {
 
     const payload = id ? { ...form, id } : form;
 
-    const { error } = await supabase.from("profile").upsert(payload);
+    const { error } = await supabase.from("profile").upsert(payload as ProfileInsert);
 
     if (error) {
       toast.error(`Save failed: ${error.message}`);
