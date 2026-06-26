@@ -56,6 +56,7 @@ export interface Database {
           location?: string | null;
           updated_at?: string;
         };
+        Relationships: [];
       };
       experience: {
         Row: {
@@ -94,6 +95,7 @@ export interface Database {
           order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       education: {
         Row: {
@@ -126,6 +128,7 @@ export interface Database {
           description?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       skills: {
         Row: {
@@ -152,6 +155,7 @@ export interface Database {
           order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       certifications: {
         Row: {
@@ -181,6 +185,7 @@ export interface Database {
           image_url?: string | null;
           created_at?: string;
         };
+        Relationships: [];
       };
       projects: {
         Row: {
@@ -219,6 +224,7 @@ export interface Database {
           order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;
