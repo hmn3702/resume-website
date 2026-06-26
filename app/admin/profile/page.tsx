@@ -50,7 +50,7 @@ export default function AdminProfilePage() {
 
     const payload = id ? { ...form, id } : form;
 
-    const { error } = await supabase.from("profile").upsert(payload as any);
+    const { error } = await supabase.from("profile").upsert(payload);
 
     if (error) {
       toast.error(`Save failed: ${error.message}`);

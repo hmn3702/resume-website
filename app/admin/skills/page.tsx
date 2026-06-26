@@ -50,7 +50,7 @@ export default function AdminSkillsPage() {
   const handleInlineSave = async (id: string) => {
     setSaving(true);
 
-    const { error } = await supabase.from("skills").update(editForm as any).eq("id", id);
+    const { error } = await supabase.from("skills").update(editForm).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success("Saved!"); cancelEdit(); load(); }
     setSaving(false);
@@ -60,7 +60,7 @@ export default function AdminSkillsPage() {
     e.preventDefault();
     setSaving(true);
 
-    const { error } = await supabase.from("skills").insert(addForm as any);
+    const { error } = await supabase.from("skills").insert(addForm);
     if (error) toast.error(error.message);
     else { toast.success("Added!"); setAddForm({ ...EMPTY }); setShowAdd(false); load(); }
     setSaving(false);

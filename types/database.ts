@@ -30,8 +30,32 @@ export interface Database {
           location: string | null;
           updated_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["profile"]["Row"], "id" | "updated_at">;
-        Update: Partial<Database["public"]["Tables"]["profile"]["Insert"]>;
+        Insert: {
+          id?: string;
+          name: string;
+          title: string;
+          bio?: string | null;
+          avatar_url?: string | null;
+          cv_url?: string | null;
+          email?: string | null;
+          linkedin_url?: string | null;
+          github_url?: string | null;
+          location?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          title?: string;
+          bio?: string | null;
+          avatar_url?: string | null;
+          cv_url?: string | null;
+          email?: string | null;
+          linkedin_url?: string | null;
+          github_url?: string | null;
+          location?: string | null;
+          updated_at?: string;
+        };
       };
       experience: {
         Row: {
@@ -46,8 +70,30 @@ export interface Database {
           order: number;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["experience"]["Row"], "id" | "created_at">;
-        Update: Partial<Database["public"]["Tables"]["experience"]["Insert"]>;
+        Insert: {
+          id?: string;
+          role: string;
+          company: string;
+          location?: string | null;
+          start_date: string;
+          end_date?: string | null;
+          is_current?: boolean;
+          description?: string | null;
+          order?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          role?: string;
+          company?: string;
+          location?: string | null;
+          start_date?: string;
+          end_date?: string | null;
+          is_current?: boolean;
+          description?: string | null;
+          order?: number;
+          created_at?: string;
+        };
       };
       education: {
         Row: {
@@ -60,8 +106,26 @@ export interface Database {
           description: string | null;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["education"]["Row"], "id" | "created_at">;
-        Update: Partial<Database["public"]["Tables"]["education"]["Insert"]>;
+        Insert: {
+          id?: string;
+          institution: string;
+          degree: string;
+          field: string;
+          start_year: number;
+          end_year?: number | null;
+          description?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          institution?: string;
+          degree?: string;
+          field?: string;
+          start_year?: number;
+          end_year?: number | null;
+          description?: string | null;
+          created_at?: string;
+        };
       };
       skills: {
         Row: {
@@ -72,8 +136,22 @@ export interface Database {
           order: number;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["skills"]["Row"], "id" | "created_at">;
-        Update: Partial<Database["public"]["Tables"]["skills"]["Insert"]>;
+        Insert: {
+          id?: string;
+          name: string;
+          category: string;
+          level: "beginner" | "intermediate" | "advanced" | "expert";
+          order?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          category?: string;
+          level?: "beginner" | "intermediate" | "advanced" | "expert";
+          order?: number;
+          created_at?: string;
+        };
       };
       certifications: {
         Row: {
@@ -85,8 +163,24 @@ export interface Database {
           image_url: string | null;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["certifications"]["Row"], "id" | "created_at">;
-        Update: Partial<Database["public"]["Tables"]["certifications"]["Insert"]>;
+        Insert: {
+          id?: string;
+          name: string;
+          issuer: string;
+          year: number;
+          credential_url?: string | null;
+          image_url?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          issuer?: string;
+          year?: number;
+          credential_url?: string | null;
+          image_url?: string | null;
+          created_at?: string;
+        };
       };
       projects: {
         Row: {
@@ -101,8 +195,30 @@ export interface Database {
           order: number;
           created_at: string;
         };
-        Insert: Omit<Database["public"]["Tables"]["projects"]["Row"], "id" | "created_at">;
-        Update: Partial<Database["public"]["Tables"]["projects"]["Insert"]>;
+        Insert: {
+          id?: string;
+          title: string;
+          description: string;
+          tech_stack?: string[];
+          live_url?: string | null;
+          github_url?: string | null;
+          image_url?: string | null;
+          featured?: boolean;
+          order?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          description?: string;
+          tech_stack?: string[];
+          live_url?: string | null;
+          github_url?: string | null;
+          image_url?: string | null;
+          featured?: boolean;
+          order?: number;
+          created_at?: string;
+        };
       };
     };
     Views: Record<string, never>;

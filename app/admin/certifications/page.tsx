@@ -50,10 +50,9 @@ export default function AdminCertificationsPage() {
     let error;
     if (editId) {
 
-      ({ error } = await supabase.from("certifications").update(payload as any).eq("id", editId));
+      ({ error } = await supabase.from("certifications").update(payload).eq("id", editId));
     } else {
-
-      ({ error } = await supabase.from("certifications").insert(payload as any));
+      ({ error } = await supabase.from("certifications").insert(payload));
     }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }

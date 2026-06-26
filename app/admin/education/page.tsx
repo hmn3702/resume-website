@@ -47,10 +47,9 @@ export default function AdminEducationPage() {
     let error;
     if (editId) {
 
-      ({ error } = await supabase.from("education").update(form as any).eq("id", editId));
+      ({ error } = await supabase.from("education").update(form).eq("id", editId));
     } else {
-
-      ({ error } = await supabase.from("education").insert(form as any));
+      ({ error } = await supabase.from("education").insert(form));
     }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }

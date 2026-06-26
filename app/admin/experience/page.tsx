@@ -72,10 +72,9 @@ export default function AdminExperiencePage() {
     let error;
     if (editId) {
 
-      ({ error } = await supabase.from("experience").update(payload as any).eq("id", editId));
+      ({ error } = await supabase.from("experience").update(payload).eq("id", editId));
     } else {
-
-      ({ error } = await supabase.from("experience").insert(payload as any));
+      ({ error } = await supabase.from("experience").insert(payload));
     }
 
     if (error) {
