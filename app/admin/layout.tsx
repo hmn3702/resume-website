@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { createSupabaseServerClient } from "@/lib/supabase-server";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import AdminTopBar from "@/components/admin/AdminTopBar";
@@ -18,8 +17,10 @@ export default async function AdminLayout({
     data: { user },
   } = await supabase.auth.getUser();
 
+  // No user = we're on the login page (middleware blocks all other /admin/* routes).
+  // Render children directly so the login form shows without the admin shell.
   if (!user) {
-    redirect("/admin/login");
+    return <>{children}</>;
   }
 
   return (
