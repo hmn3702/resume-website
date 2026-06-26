@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
 import type { Profile, Skill } from "@/types/database";
+import SkillsGrid from "@/components/about/SkillsGrid";
+import LanguagesSection from "@/components/about/LanguagesSection";
 
 export const metadata: Metadata = {
   title: "About",
@@ -9,98 +11,93 @@ export const metadata: Metadata = {
 
 async function getData() {
   const [{ data: profile }, { data: skills }] = await Promise.all([
-    supabase.from("profile").select("*").single(),
-    supabase.from("skills").select("*").order("category"),
+    supabase.from("profile").select("*").order("updated_at", { ascending: false }).limit(1).single(),
+    supabase.from("skills").select("*").order("order", { ascending: true }),
   ]);
-  return { profile: profile as Profile | null, skills: (skills ?? []) as Skill[] };
+  return {
+    profile: profile as Profile | null,
+    skills: (skills ?? []) as Skill[],
+  };
 }
-
-const SKILL_LEVEL_WIDTH: Record<Skill["level"], string> = {
-  beginner: "w-1/4",
-  intermediate: "w-1/2",
-  advanced: "w-3/4",
-  expert: "w-full",
-};
 
 export default async function AboutPage() {
   const { profile, skills } = await getData();
 
-  const categories = Array.from(new Set(skills.map((s) => s.category)));
-
   return (
-    <div className="section-container py-20 space-y-16">
-      {/* Header */}
-      <div className="space-y-4">
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-          About <span className="gradient-text">Me</span>
-        </h1>
-        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-          {profile?.bio ??
-            "Data Analyst with a passion for turning raw data into actionable insights. " +
-              "Currently pursuing a Master of Data Science at QUT Brisbane."}
-        </p>
-      </div>
+    <div className="section-container py-20 space-y-20">
 
-      {/* Skills grid */}
-      {categories.length > 0 && (
-        <section className="space-y-8">
-          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
-            Skills
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-8">
-            {categories.map((cat) => (
-              <div key={cat} className="card p-6 space-y-4">
-                <h3 className="font-semibold text-teal-600 dark:text-teal-400 uppercase text-xs tracking-widest">
-                  {cat}
-                </h3>
-                <ul className="space-y-3">
-                  {skills
-                    .filter((s) => s.category === cat)
-                    .map((skill) => (
-                      <li key={skill.id} className="space-y-1">
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium text-slate-800 dark:text-slate-200">
-                            {skill.name}
-                          </span>
-                          <span className="text-slate-500 dark:text-slate-400 capitalize">
-                            {skill.level}
-                          </span>
-                        </div>
-                        <div className="h-1.5 w-full bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full bg-teal-500 rounded-full ${SKILL_LEVEL_WIDTH[skill.level]}`}
-                          />
-                        </div>
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
+      {/* Bio */}
+      <section className="grid md:grid-cols-2 gap-10 items-center">
+        <div className="space-y-5">
+          <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+            Who I am
+          </p>
+          <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
+            About <span className="gradient-text">Me</span>
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+            {profile?.bio ??
+              "Data Science graduate (QUT Brisbane) with a background in IoT engineering from FPT University. " +
+              "Passionate about turning raw data into actionable insights using Python, SQL, Power BI, and Tableau."}
+          </p>
+          {profile?.location && (
+            <p className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+              <svg className="w-4 h-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              {profile.location}
+            </p>
+          )}
+        </div>
 
-      {/* Languages */}
-      <section className="space-y-4">
-        <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
-          Languages
-        </h2>
-        <div className="flex flex-wrap gap-4">
+        {/* Quick-fact cards */}
+        <div className="grid grid-cols-2 gap-4">
           {[
-            { lang: "Vietnamese", level: "Native" },
-            { lang: "English", level: "Professional" },
-          ].map(({ lang, level }) => (
-            <div key={lang} className="card px-5 py-3 flex items-center gap-3">
-              <span className="font-medium text-slate-800 dark:text-slate-200">
-                {lang}
-              </span>
-              <span className="text-xs bg-teal-100 dark:bg-teal-900/40 text-teal-700 dark:text-teal-300 px-2 py-0.5 rounded-full">
-                {level}
-              </span>
+            { icon: "🎓", label: "Degree",       value: "Master of IT (Data Science)" },
+            { icon: "🏫", label: "University",   value: "QUT Brisbane" },
+            { icon: "📜", label: "Certificates", value: "13 professional certs" },
+            { icon: "💼", label: "Available",    value: "Open to opportunities" },
+          ].map(({ icon, label, value }) => (
+            <div key={label} className="card p-4 space-y-1">
+              <span className="text-xl" aria-hidden="true">{icon}</span>
+              <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</p>
+              <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug">{value}</p>
             </div>
           ))}
         </div>
       </section>
+
+      {/* Skills */}
+      {skills.length > 0 && (
+        <section className="space-y-6">
+          <div className="space-y-1">
+            <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+              Technical toolkit
+            </p>
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+              Skills &amp; Technologies
+            </h2>
+          </div>
+          <SkillsGrid skills={skills} />
+        </section>
+      )}
+
+      {/* Languages */}
+      <section className="space-y-6">
+        <div className="space-y-1">
+          <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+            Communication
+          </p>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+            Languages
+          </h2>
+        </div>
+        <LanguagesSection />
+      </section>
+
     </div>
   );
 }
