@@ -3,7 +3,7 @@ import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Quynh Nguyen.",
+  description: "Get in touch with Nghia Ha.",
 };
 
 export default function ContactPage() {

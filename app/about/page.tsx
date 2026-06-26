@@ -4,7 +4,7 @@ import type { Profile, Skill } from "@/types/database";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Quynh Nguyen — background, skills, and languages.",
+  description: "About Nghia Ha — background, skills, and languages.",
 };
 
 async function getData() {

@@ -13,8 +13,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Quynh Nguyen | Data Analyst",
-    template: "%s | Quynh Nguyen",
+    default: "Nghia Ha | Data Analyst",
+    template: "%s | Nghia Ha",
   },
   description:
     "Data Analyst & aspiring Data Scientist. Master of Data Science – QUT Brisbane. " +
@@ -28,11 +28,11 @@ export const metadata: Metadata = {
     "Tableau",
     "QUT",
   ],
-  authors: [{ name: "Quynh Nguyen" }],
+  authors: [{ name: "Nghia Ha" }],
   openGraph: {
     type: "website",
     locale: "en_AU",
-    siteName: "Quynh Nguyen Portfolio",
+    siteName: "Nghia Ha Portfolio",
   },
   twitter: {
     card: "summary_large_image",

@@ -14,7 +14,7 @@ async function getProfile(): Promise<Profile | null> {
 export default async function HomePage() {
   const profile = await getProfile();
 
-  const name = profile?.name ?? "Quynh Nguyen";
+  const name = profile?.name ?? "Nghia Ha";
   const title = profile?.title ?? "Data Analyst & Aspiring Data Scientist";
   const bio =
     profile?.bio ??
