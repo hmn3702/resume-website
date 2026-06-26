@@ -49,7 +49,7 @@ export default function AdminProfilePage() {
     setSaving(true);
 
     const payload = id ? { ...form, id } : form;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { error } = await supabase.from("profile").upsert(payload as any);
 
     if (error) {

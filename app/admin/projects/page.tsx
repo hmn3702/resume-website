@@ -73,10 +73,10 @@ export default function AdminProjectsPage() {
     };
     let error;
     if (editId) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("projects").update(payload as any).eq("id", editId));
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("projects").insert(payload as any));
     }
     if (error) toast.error(error.message);

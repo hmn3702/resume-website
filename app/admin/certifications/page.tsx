@@ -49,10 +49,10 @@ export default function AdminCertificationsPage() {
     const payload = { ...form, credential_url: form.credential_url || null, image_url: form.image_url || null };
     let error;
     if (editId) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("certifications").update(payload as any).eq("id", editId));
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("certifications").insert(payload as any));
     }
     if (error) toast.error(error.message);

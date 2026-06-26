@@ -71,10 +71,10 @@ export default function AdminExperiencePage() {
 
     let error;
     if (editId) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("experience").update(payload as any).eq("id", editId));
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("experience").insert(payload as any));
     }
 

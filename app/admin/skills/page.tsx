@@ -49,7 +49,7 @@ export default function AdminSkillsPage() {
 
   const handleInlineSave = async (id: string) => {
     setSaving(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { error } = await supabase.from("skills").update(editForm as any).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success("Saved!"); cancelEdit(); load(); }
@@ -59,7 +59,7 @@ export default function AdminSkillsPage() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     const { error } = await supabase.from("skills").insert(addForm as any);
     if (error) toast.error(error.message);
     else { toast.success("Added!"); setAddForm({ ...EMPTY }); setShowAdd(false); load(); }

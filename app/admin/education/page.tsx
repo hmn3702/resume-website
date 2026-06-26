@@ -46,10 +46,10 @@ export default function AdminEducationPage() {
     setSaving(true);
     let error;
     if (editId) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("education").update(form as any).eq("id", editId));
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
       ({ error } = await supabase.from("education").insert(form as any));
     }
     if (error) toast.error(error.message);
