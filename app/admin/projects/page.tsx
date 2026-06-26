@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Project } from "@/types/database";
+import type { Project, Database } from "@/types/database";
+
+type ProjectInsert = Database["public"]["Tables"]["projects"]["Insert"];
+type ProjectUpdate = Database["public"]["Tables"]["projects"]["Update"];
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
 
@@ -73,9 +76,9 @@ export default function AdminProjectsPage() {
     };
     let error;
     if (editId) {
-      ({ error } = await supabase.from("projects").update(payload).eq("id", editId));
+      ({ error } = await supabase.from("projects").update(payload as ProjectUpdate).eq("id", editId));
     } else {
-      ({ error } = await supabase.from("projects").insert(payload));
+      ({ error } = await supabase.from("projects").insert(payload as ProjectInsert));
     }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }

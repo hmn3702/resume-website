@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Skill } from "@/types/database";
+import type { Skill, Database } from "@/types/database";
+
+type SkillInsert = Database["public"]["Tables"]["skills"]["Insert"];
+type SkillUpdate = Database["public"]["Tables"]["skills"]["Update"];
 import toast, { Toaster } from "react-hot-toast";
 
 type Level = Skill["level"];
@@ -49,7 +52,7 @@ export default function AdminSkillsPage() {
 
   const handleInlineSave = async (id: string) => {
     setSaving(true);
-    const { error } = await supabase.from("skills").update(editForm).eq("id", id);
+    const { error } = await supabase.from("skills").update(editForm as SkillUpdate).eq("id", id);
     if (error) toast.error(error.message);
     else { toast.success("Saved!"); cancelEdit(); load(); }
     setSaving(false);
@@ -58,7 +61,7 @@ export default function AdminSkillsPage() {
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    const { error } = await supabase.from("skills").insert(addForm);
+    const { error } = await supabase.from("skills").insert(addForm as SkillInsert);
     if (error) toast.error(error.message);
     else { toast.success("Added!"); setAddForm({ ...EMPTY }); setShowAdd(false); load(); }
     setSaving(false);

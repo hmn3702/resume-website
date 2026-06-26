@@ -2,7 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import type { Education } from "@/types/database";
+import type { Education, Database } from "@/types/database";
+
+type EduInsert = Database["public"]["Tables"]["education"]["Insert"];
+type EduUpdate = Database["public"]["Tables"]["education"]["Update"];
 import toast, { Toaster } from "react-hot-toast";
 
 type EduForm = Omit<Education, "id" | "created_at">;
@@ -46,9 +49,9 @@ export default function AdminEducationPage() {
     setSaving(true);
     let error;
     if (editId) {
-      ({ error } = await supabase.from("education").update(form).eq("id", editId));
+      ({ error } = await supabase.from("education").update(form as EduUpdate).eq("id", editId));
     } else {
-      ({ error } = await supabase.from("education").insert(form));
+      ({ error } = await supabase.from("education").insert(form as EduInsert));
     }
     if (error) toast.error(error.message);
     else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
