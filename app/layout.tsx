@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ThemeProvider from "@/components/layout/ThemeProvider";
+import PageTransition from "@/components/layout/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -53,8 +54,14 @@ export default function RootLayout({
       <body className={`${inter.variable} font-sans antialiased`}>
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
+            {/* Skip to main content — visible only on keyboard focus */}
+            <a href="#main-content" className="skip-link">
+              Skip to main content
+            </a>
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main id="main-content" className="flex-1">
+              <PageTransition>{children}</PageTransition>
+            </main>
             <Footer />
           </div>
         </ThemeProvider>
