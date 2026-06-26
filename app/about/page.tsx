@@ -25,7 +25,7 @@ const SKILL_LEVEL_WIDTH: Record<Skill["level"], string> = {
 export default async function AboutPage() {
   const { profile, skills } = await getData();
 
-  const categories = [...new Set(skills.map((s) => s.category))];
+  const categories = Array.from(new Set(skills.map((s) => s.category)));
 
   return (
     <div className="section-container py-20 space-y-16">
