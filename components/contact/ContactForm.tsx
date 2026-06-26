@@ -76,7 +76,7 @@ export default function ContactForm() {
           name="message"
           required
           rows={5}
-          placeholder="Hi Quynh, I'd love to connect about..."
+          placeholder="Hi Nghia, I'd love to connect about..."
           value={form.message}
           onChange={handleChange}
           className={`${inputClass} resize-none`}
@@ -95,7 +95,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "sending"}
-        className="w-full py-3 px-6 rounded-xl bg-teal-500 hover:bg-teal-600 disabled:opacity-60 text-white font-semibold transition-colors shadow-lg shadow-teal-500/20"
+        className="focus-ring w-full py-3 px-6 min-h-[44px] rounded-xl bg-teal-500 hover:bg-teal-600 disabled:opacity-60 text-white font-semibold transition-colors shadow-lg shadow-teal-500/20"
       >
         {status === "sending" ? "Sending…" : "Send Message"}
       </button>

@@ -39,7 +39,7 @@ export default async function Footer() {
   return (
     <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50">
       <div className="section-container py-12">
-        <div className="grid sm:grid-cols-3 gap-10 pb-10 border-b border-slate-200 dark:border-slate-800">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 pb-10 border-b border-slate-200 dark:border-slate-800">
 
           {/* Brand */}
           <div className="space-y-3">

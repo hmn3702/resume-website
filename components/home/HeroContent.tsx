@@ -75,7 +75,7 @@ export default function HeroContent({ profile }: Props) {
         <p className="text-teal-600 dark:text-teal-400 font-medium tracking-[0.2em] uppercase text-xs sm:text-sm">
           Hello, I&apos;m
         </p>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white">
           {name.split(" ").map((word, i) =>
             i === name.split(" ").length - 1 ? (
               <span key={i} className="gradient-text"> {word}</span>
@@ -106,11 +106,11 @@ export default function HeroContent({ profile }: Props) {
         initial="hidden"
         animate="show"
         custom={0.4}
-        className="flex flex-wrap justify-center gap-4"
+        className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 w-full sm:w-auto"
       >
         <Link
           href="/projects"
-          className="focus-ring group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-semibold transition-all duration-200 shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5"
+          className="focus-ring group inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[44px] rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-semibold transition-all duration-200 shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 hover:-translate-y-0.5 w-full sm:w-auto"
         >
           View My Work
           <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -123,7 +123,7 @@ export default function HeroContent({ profile }: Props) {
             href={cvUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="focus-ring group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:border-teal-500 dark:hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 hover:-translate-y-0.5"
+            className="focus-ring group inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:border-teal-500 dark:hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -133,7 +133,7 @@ export default function HeroContent({ profile }: Props) {
         ) : (
           <Link
             href="/contact"
-            className="focus-ring group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:border-teal-500 dark:hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 hover:-translate-y-0.5"
+            className="focus-ring group inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:border-teal-500 dark:hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
           >
             Get in Touch
           </Link>
@@ -146,7 +146,7 @@ export default function HeroContent({ profile }: Props) {
         initial="hidden"
         animate="show"
         custom={0.55}
-        className="grid grid-cols-3 gap-8 pt-8 border-t border-slate-200 dark:border-slate-800 w-full max-w-sm"
+        className="grid grid-cols-3 gap-4 sm:gap-8 pt-8 border-t border-slate-200 dark:border-slate-800 w-full max-w-sm"
       >
         {[
           { value: "13+", label: "Certifications" },

@@ -20,7 +20,7 @@ export default async function ExperiencePage() {
   const experiences = await getExperience();
 
   return (
-    <div className="section-container py-20 space-y-12">
+    <div className="section-container py-20 space-y-12 overflow-x-hidden">
       {/* Page header */}
       <div className="space-y-3 max-w-xl">
         <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
