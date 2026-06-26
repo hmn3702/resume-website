@@ -44,7 +44,7 @@ export default function ImageUpload({ folder, currentUrl, onUpload, label = "Ima
 
       const { data, error: uploadError } = await supabase.storage
         .from("resume-assets")
-        .upload(fileName, file, { upsert: true });
+        .upload(fileName, file, { upsert: true, contentType: file.type });
 
       if (uploadError) {
         setError(uploadError.message);
