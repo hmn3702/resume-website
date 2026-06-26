@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Profile, Database } from "@/types/database";
-
-type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
+
+type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
 
 const FIELDS: { key: keyof Profile; label: string; type?: string; multiline?: boolean }[] = [
   { key: "name",         label: "Full name" },
@@ -20,6 +20,7 @@ const FIELDS: { key: keyof Profile; label: string; type?: string; multiline?: bo
 ];
 
 export default function AdminProfilePage() {
+  const supabase = createSupabaseBrowserClient();
   const [form, setForm] = useState<Partial<Profile>>({});
   const [id, setId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -41,6 +42,7 @@ export default function AdminProfilePage() {
       setLoading(false);
     }
     load();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleChange = (key: keyof Profile, value: string) =>
@@ -51,7 +53,6 @@ export default function AdminProfilePage() {
     setSaving(true);
 
     const payload = id ? { ...form, id } : form;
-
     const { error } = await supabase.from("profile").upsert(payload as ProfileInsert);
 
     if (error) {

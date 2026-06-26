@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Skill } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -16,6 +16,7 @@ const EMPTY: Omit<Skill, "id" | "created_at"> = {
 };
 
 export default function AdminSkillsPage() {
+  const supabase = createSupabaseBrowserClient();
   const [items, setItems] = useState<Skill[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState<string>("All");

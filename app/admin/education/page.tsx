@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Education } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -17,6 +17,7 @@ const EMPTY: EduForm = {
 };
 
 export default function AdminEducationPage() {
+  const supabase = createSupabaseBrowserClient();
   const [items, setItems] = useState<Education[]>([]);
   const [loading, setLoading] = useState(true);
   const [panelOpen, setPanelOpen] = useState(false);

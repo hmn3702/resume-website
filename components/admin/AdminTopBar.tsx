@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 interface Props {
   email: string;
@@ -9,6 +9,7 @@ interface Props {
 
 export default function AdminTopBar({ email }: Props) {
   const router = useRouter();
+  const supabase = createSupabaseBrowserClient();
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();

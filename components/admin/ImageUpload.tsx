@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 interface Props {
   /** Storage folder: "avatars" | "projects" */
@@ -14,6 +14,7 @@ interface Props {
 }
 
 export default function ImageUpload({ folder, currentUrl, onUpload, label = "Image" }: Props) {
+  const supabase = createSupabaseBrowserClient();
   const [dragging, setDragging] = useState(false);
   const [progress, setProgress] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);

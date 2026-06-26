@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { supabase } from "@/lib/supabase";
+import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Certification } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -16,6 +16,7 @@ const EMPTY: CertForm = {
 };
 
 export default function AdminCertificationsPage() {
+  const supabase = createSupabaseBrowserClient();
   const [items, setItems] = useState<Certification[]>([]);
   const [loading, setLoading] = useState(true);
   const [panelOpen, setPanelOpen] = useState(false);
