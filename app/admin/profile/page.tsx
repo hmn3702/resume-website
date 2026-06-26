@@ -53,12 +53,20 @@ export default function AdminProfilePage() {
     setSaving(true);
 
     const payload = id ? { ...form, id } : form;
-    const { error } = await supabase.from("profile").upsert(payload as ProfileInsert);
+    const { data: saved, error } = await supabase
+      .from("profile")
+      .upsert(payload as ProfileInsert)
+      .select()
+      .single();
 
     if (error) {
       toast.error(`Save failed: ${error.message}`);
+    } else if (!saved) {
+      toast.error("Save blocked — RLS policy rejected the write. Check you are signed in.");
     } else {
       toast.success("Profile saved!");
+      setId(saved.id);
+      setForm(saved);
     }
     setSaving(false);
   };
