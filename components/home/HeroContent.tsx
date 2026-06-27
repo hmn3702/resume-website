@@ -45,7 +45,7 @@ export default function HeroContent({ profile }: Props) {
       >
         {profile?.avatar_url ? (
           <>
-            <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
+            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
               <Image
                 src={profile.avatar_url}
                 alt={name}
