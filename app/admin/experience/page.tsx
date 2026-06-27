@@ -29,6 +29,7 @@ export default function AdminExperiencePage() {
     const { data } = await supabase
       .from("experience")
       .select("*")
+      .order("is_current", { ascending: false })
       .order("start_date", { ascending: false });
     setItems((data ?? []) as Experience[]);
     setLoading(false);
