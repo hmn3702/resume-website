@@ -14,7 +14,7 @@ async function getExperience(): Promise<Experience[]> {
   const { data } = await supabase
     .from("experience")
     .select("*")
-    .order("order", { ascending: true });
+    .order("start_date", { ascending: false });
   return (data ?? []) as Experience[];
 }
 
