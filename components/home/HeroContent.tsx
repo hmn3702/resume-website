@@ -45,7 +45,7 @@ export default function HeroContent({ profile }: Props) {
       >
         {profile?.avatar_url ? (
           <>
-            <div className="avatar-ring relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
+            <div className="avatar-ring relative w-36 h-36 sm:w-40 sm:h-40 rounded-full overflow-hidden">
               <Image
                 src={profile.avatar_url}
                 alt={name}
@@ -58,7 +58,7 @@ export default function HeroContent({ profile }: Props) {
             <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-teal-400 border-2 border-white dark:border-slate-950" />
           </>
         ) : (
-          <div className="avatar-ring w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+          <div className="avatar-ring w-36 h-36 sm:w-40 sm:h-40 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
             <span className="text-3xl font-bold text-white select-none">
               {name.split(" ").map((n) => n[0]).slice(0, 2).join("")}
             </span>
@@ -97,7 +97,7 @@ export default function HeroContent({ profile }: Props) {
         initial="hidden"
         animate="show"
         custom={0.25}
-        className="max-w-xl text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed text-balance"
+        className="max-w-xl text-slate-600 dark:text-slate-400 text-base sm:text-lg leading-relaxed text-left"
       >
         {bio}
       </motion.p>
@@ -135,7 +135,7 @@ export default function HeroContent({ profile }: Props) {
         ) : (
           <Link
             href="/contact"
-            className="focus-ring group inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[44px] rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold hover:border-teal-500 dark:hover:border-teal-500 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
+            className="focus-ring group inline-flex items-center justify-center gap-2 px-7 py-3.5 min-h-[44px] rounded-xl border border-slate-400 dark:border-slate-500 text-slate-700 dark:text-slate-200 font-semibold hover:border-teal-500 dark:hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-all duration-200 hover:-translate-y-0.5 w-full sm:w-auto"
           >
             Get in Touch
           </Link>
@@ -148,7 +148,7 @@ export default function HeroContent({ profile }: Props) {
         initial="hidden"
         animate="show"
         custom={0.55}
-        className="grid grid-cols-3 gap-4 sm:gap-8 pt-8 border-t border-slate-200 dark:border-slate-800 w-full max-w-sm"
+        className="grid grid-cols-3 gap-4 sm:gap-8 pt-10 mt-4 border-t border-slate-300 dark:border-slate-600 w-full max-w-sm"
       >
         {[
           { value: "13+", label: "Certifications" },
