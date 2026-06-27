@@ -100,9 +100,21 @@ export default function AdminProfilePage() {
           onUpload={(url) => setForm((p) => ({ ...p, avatar_url: url }))}
         />
         {form.avatar_url && (
-          <div className="flex items-center gap-3 mt-3 pt-3 border-t border-slate-100">
-            <p className="text-sm font-medium text-slate-700">{form.name}</p>
-            <p className="text-xs text-slate-400">{form.title}</p>
+          <div className="flex items-center justify-between gap-3 mt-3 pt-3 border-t border-slate-100">
+            <div className="flex items-center gap-3">
+              <p className="text-sm font-medium text-slate-700">{form.name}</p>
+              <p className="text-xs text-slate-400">{form.title}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setForm((p) => ({ ...p, avatar_url: null }))}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-red-500 hover:bg-red-50 transition-colors"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+              Remove avatar
+            </button>
           </div>
         )}
       </div>
