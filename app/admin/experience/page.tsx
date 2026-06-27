@@ -5,7 +5,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Experience } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
-const EMPTY: Omit<Experience, "id" | "created_at" | "order"> = {
+const EMPTY: Omit<Experience, "id" | "created_at"> = {
   role: "",
   company: "",
   location: "",
