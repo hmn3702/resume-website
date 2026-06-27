@@ -14,7 +14,8 @@ async function getProjects(): Promise<Project[]> {
   const { data } = await supabase
     .from("projects")
     .select("*")
-    .order("order", { ascending: true });
+    .order("featured", { ascending: false })
+    .order("created_at", { ascending: false });
   return (data ?? []) as Project[];
 }
 

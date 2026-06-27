@@ -6,7 +6,7 @@ import type { Project } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
 
-type ProjectForm = Omit<Project, "id" | "created_at"> & { tech_stack_raw: string };
+type ProjectForm = Omit<Project, "id" | "created_at" | "order"> & { tech_stack_raw: string };
 
 const EMPTY: ProjectForm = {
   title: "",
@@ -17,7 +17,6 @@ const EMPTY: ProjectForm = {
   github_url: null,
   image_url: null,
   featured: false,
-  order: 0,
 };
 
 export default function AdminProjectsPage() {
@@ -34,7 +33,8 @@ export default function AdminProjectsPage() {
     const { data } = await supabase
       .from("projects")
       .select("*")
-      .order("order", { ascending: true });
+      .order("featured", { ascending: false })
+      .order("created_at", { ascending: false });
     setItems((data ?? []) as Project[]);
     setLoading(false);
   }
@@ -53,7 +53,6 @@ export default function AdminProjectsPage() {
       github_url: item.github_url,
       image_url: item.image_url,
       featured: item.featured,
-      order: item.order,
     });
     setPanelOpen(true);
   };
@@ -70,7 +69,6 @@ export default function AdminProjectsPage() {
       github_url: form.github_url || null,
       image_url: form.image_url || null,
       featured: form.featured,
-      order: form.order,
     };
     let error;
     if (editId) {
@@ -247,23 +245,15 @@ export default function AdminProjectsPage() {
                 onUpload={(url) => setForm((p) => ({ ...p, image_url: url }))}
               />
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
-                  <input type="number" value={form.order} onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))} className={inputClass} />
-                </div>
-                <div className="flex items-end pb-2.5">
-                  <label className="flex items-center gap-2.5 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={form.featured}
-                      onChange={(e) => setForm((p) => ({ ...p, featured: e.target.checked }))}
-                      className="w-4 h-4 rounded border-slate-300 text-teal-500 focus:ring-teal-500"
-                    />
-                    <span className="text-sm text-slate-700">Featured</span>
-                  </label>
-                </div>
-              </div>
+              <label className="flex items-center gap-2.5 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.featured}
+                  onChange={(e) => setForm((p) => ({ ...p, featured: e.target.checked }))}
+                  className="w-4 h-4 rounded border-slate-300 text-teal-500 focus:ring-teal-500"
+                />
+                <span className="text-sm font-medium text-slate-700">Featured</span>
+              </label>
 
               <div className="pt-2 flex gap-3">
                 <button type="submit" disabled={saving} className="flex-1 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 disabled:opacity-60 text-white text-sm font-semibold transition-colors">

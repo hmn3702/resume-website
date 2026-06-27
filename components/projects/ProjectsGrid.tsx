@@ -32,11 +32,11 @@ export default function ProjectsGrid({ projects }: Props) {
     show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
   };
 
-  // Featured first, then by order
+  // Featured first, then newest first
   const sorted = [...projects].sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return 1;
-    return a.order - b.order;
+    return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
   if (projects.length === 0) {
