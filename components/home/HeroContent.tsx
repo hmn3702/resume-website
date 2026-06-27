@@ -49,7 +49,7 @@ export default function HeroContent({ profile }: Props) {
               src={profile.avatar_url}
               alt={name}
               fill
-              className="object-cover"
+              className="object-cover object-top"
               sizes="128px"
               priority
             />
