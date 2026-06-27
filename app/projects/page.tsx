@@ -7,7 +7,21 @@ import ProjectsGrid from "@/components/projects/ProjectsGrid";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Data analytics and data science projects by Ha Minh Nghia.",
+  description:
+    "Data analytics, data science, and IoT projects by Nghia Ha — including dashboards, machine learning models, and full-stack applications built with Python, SQL, Power BI, and Next.js.",
+  keywords: ["projects", "portfolio", "Data Analytics", "Python", "SQL", "Power BI", "Next.js", "Nghia Ha"],
+  openGraph: {
+    title: "Projects | Nghia Ha",
+    description:
+      "Data analytics, data science, and IoT projects — dashboards, ML models, and full-stack apps.",
+    url: "/projects",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    title: "Projects | Nghia Ha",
+    description: "Data analytics, data science, and IoT projects by Nghia Ha.",
+  },
+  alternates: { canonical: "/projects" },
 };
 
 async function getProjects(): Promise<Project[]> {

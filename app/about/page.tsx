@@ -8,7 +8,21 @@ import LanguagesSection from "@/components/about/LanguagesSection";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Nghia Ha — background, skills, and languages.",
+  description:
+    "About Nghia Ha — Data Analyst and Data Science graduate from QUT Brisbane with an IoT engineering background. Skills in Python, SQL, Power BI, Tableau, and machine learning.",
+  keywords: ["Data Analyst", "Python", "SQL", "Power BI", "Tableau", "IoT", "QUT Brisbane", "skills"],
+  openGraph: {
+    title: "About | Nghia Ha",
+    description:
+      "Data Analyst and Data Science graduate from QUT Brisbane. Skilled in Python, SQL, Power BI, Tableau, and machine learning.",
+    url: "/about",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    title: "About | Nghia Ha",
+    description: "Data Analyst and Data Science graduate from QUT Brisbane.",
+  },
+  alternates: { canonical: "/about" },
 };
 
 async function getData() {

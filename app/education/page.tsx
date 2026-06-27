@@ -7,8 +7,22 @@ import EducationCards from "@/components/education/EducationCards";
 import CertificationsGrid from "@/components/education/CertificationsGrid";
 
 export const metadata: Metadata = {
-  title: "Education",
-  description: "Academic background and professional certifications of Ha Minh Nghia.",
+  title: "Education & Certifications",
+  description:
+    "Academic background and professional certifications of Nghia Ha — Master of IT (Data Science) at QUT Brisbane and 13+ industry certifications in data analytics, cloud, and IoT.",
+  keywords: ["education", "certifications", "QUT", "Data Science", "Master", "Brisbane", "Nghia Ha"],
+  openGraph: {
+    title: "Education & Certifications | Nghia Ha",
+    description:
+      "Master of IT (Data Science) at QUT Brisbane and 13+ professional certifications in data analytics, cloud, and IoT.",
+    url: "/education",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    title: "Education & Certifications | Nghia Ha",
+    description: "Master of IT (Data Science) at QUT Brisbane and 13+ professional certifications.",
+  },
+  alternates: { canonical: "/education" },
 };
 
 async function getData() {

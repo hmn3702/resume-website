@@ -7,7 +7,20 @@ export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Nghia Ha.",
+  description:
+    "Get in touch with Nghia Ha — Data Analyst based in Brisbane, Australia. Open to data analyst, data science, and analytics engineering roles.",
+  keywords: ["contact", "hire", "Data Analyst", "Brisbane", "Nghia Ha", "open to work"],
+  openGraph: {
+    title: "Contact | Nghia Ha",
+    description: "Get in touch with Nghia Ha — Data Analyst based in Brisbane, open to opportunities.",
+    url: "/contact",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    title: "Contact | Nghia Ha",
+    description: "Get in touch with Nghia Ha — Data Analyst based in Brisbane.",
+  },
+  alternates: { canonical: "/contact" },
 };
 
 async function getProfile(): Promise<Profile | null> {

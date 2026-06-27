@@ -7,7 +7,20 @@ import ExperienceTimeline from "@/components/experience/ExperienceTimeline";
 
 export const metadata: Metadata = {
   title: "Experience",
-  description: "Work experience and professional history of Ha Minh Nghia.",
+  description:
+    "Work experience and professional history of Nghia Ha — Data Analyst based in Brisbane, Australia. Roles across hospitality and tech building customer-facing and analytical skills.",
+  keywords: ["work experience", "Data Analyst", "Brisbane", "career history", "Nghia Ha"],
+  openGraph: {
+    title: "Experience | Nghia Ha",
+    description: "Professional career history of Nghia Ha — Data Analyst based in Brisbane, Australia.",
+    url: "/experience",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    title: "Experience | Nghia Ha",
+    description: "Professional career history of Nghia Ha — Data Analyst based in Brisbane.",
+  },
+  alternates: { canonical: "/experience" },
 };
 
 async function getExperience(): Promise<Experience[]> {

@@ -12,35 +12,56 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nghiaha.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Nghia Ha | Data Analyst",
     template: "%s | Nghia Ha",
   },
   description:
-    "Data Analyst & aspiring Data Scientist. Master of Data Science – QUT Brisbane. " +
-    "Skilled in Python, R, SQL, Power BI, and Tableau.",
+    "Data Analyst and Data Science graduate based in Brisbane, Australia. " +
+    "Skilled in Python, SQL, Power BI, Tableau, and machine learning.",
   keywords: [
     "Data Analyst",
     "Data Science",
+    "Brisbane",
     "Python",
     "SQL",
     "Power BI",
     "Tableau",
     "QUT",
+    "machine learning",
+    "Ha Minh Nghia",
   ],
-  authors: [{ name: "Nghia Ha" }],
+  authors: [{ name: "Nghia Ha", url: SITE_URL }],
+  creator: "Nghia Ha",
   openGraph: {
     type: "website",
     locale: "en_AU",
-    siteName: "Nghia Ha Portfolio",
+    url: SITE_URL,
+    siteName: "Nghia Ha | Data Analyst",
+    title: "Nghia Ha | Data Analyst",
+    description:
+      "Data Analyst and Data Science graduate based in Brisbane, Australia. " +
+      "Skilled in Python, SQL, Power BI, Tableau, and machine learning.",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Nghia Ha | Data Analyst",
+    description:
+      "Data Analyst and Data Science graduate based in Brisbane, Australia.",
+    images: ["/og-image.png"],
+  },
+  alternates: {
+    canonical: SITE_URL,
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: { index: true, follow: true },
   },
   viewport: {
     width: "device-width",
