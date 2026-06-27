@@ -173,6 +173,24 @@
   @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-white;
 }
 
+/* ── Tools marquee infinite scroll ─────────────────────── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none !important;
+    flex-wrap: wrap !important;
+  }
+}
+
 /* ── Scroll indicator bounce */
 @keyframes bounce-slow {
   0%, 100% { transform: translateY(0); opacity: 1; }
