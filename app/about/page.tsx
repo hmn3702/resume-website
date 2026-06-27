@@ -12,21 +12,24 @@ export const metadata: Metadata = {
 };
 
 async function getData() {
-  const [{ data: profile }, { data: skills }] = await Promise.all([
+  const [{ data: profile }, { data: skills }, { count: certCount }] = await Promise.all([
     supabase.from("profile").select("*").order("updated_at", { ascending: false }).limit(1).single(),
     supabase.from("skills").select("*").order("order", { ascending: true }),
+    supabase.from("certifications").select("*", { count: "exact", head: true }),
   ]);
   return {
     profile: profile as Profile | null,
     skills: (skills ?? []) as Skill[],
+    certCount: certCount ?? 0,
   };
 }
 
 export default async function AboutPage() {
-  const { profile, skills } = await getData();
+  const { profile, skills, certCount } = await getData();
 
   return (
-    <div className="section-container py-20 space-y-20">
+    <div className="relative section-container py-20 space-y-20">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
 
       {/* Bio */}
       <section className="grid md:grid-cols-2 gap-10 items-center">
@@ -58,9 +61,9 @@ export default async function AboutPage() {
         {/* Quick-fact cards */}
         <div className="grid grid-cols-2 gap-4">
           {[
-            { icon: "🎓", label: "Degree",       value: "Master of IT (Data Science)" },
+            { icon: "🎓", label: "Degree",       value: profile?.title?.split("|")[0]?.trim() ?? "Data Science Graduate" },
             { icon: "🏫", label: "University",   value: "QUT Brisbane" },
-            { icon: "📜", label: "Certificates", value: "13 professional certs" },
+            { icon: "📜", label: "Certificates", value: `${certCount} professional cert${certCount !== 1 ? "s" : ""}` },
             { icon: "💼", label: "Available",    value: "Open to opportunities" },
           ].map(({ icon, label, value }) => (
             <div key={label} className="card p-4 space-y-1">

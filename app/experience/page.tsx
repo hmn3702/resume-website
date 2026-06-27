@@ -22,7 +22,8 @@ export default async function ExperiencePage() {
   const experiences = await getExperience();
 
   return (
-    <div className="section-container py-20 space-y-12 overflow-x-hidden">
+    <div className="relative section-container py-20 space-y-12 overflow-x-hidden">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
       {/* Page header */}
       <div className="space-y-3 max-w-xl">
         <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
@@ -32,8 +33,8 @@ export default async function ExperiencePage() {
           Work <span className="gradient-text">Experience</span>
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
-          {experiences.length} roles across hospitality and tech — building communication,
-          teamwork, and customer-facing skills alongside my data science studies.
+          {experiences.length} role{experiences.length !== 1 ? "s" : ""} across hospitality and tech —
+          building communication, teamwork, and customer-facing skills alongside my data science studies.
         </p>
       </div>
 

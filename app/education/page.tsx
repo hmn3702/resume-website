@@ -26,7 +26,8 @@ export default async function EducationPage() {
   const { education, certifications } = await getData();
 
   return (
-    <div className="section-container py-20 space-y-20">
+    <div className="relative section-container py-20 space-y-20">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
 
       {/* Page header */}
       <div className="space-y-3 max-w-xl">

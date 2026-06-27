@@ -105,6 +105,11 @@ export default function ExperienceTimeline({ experiences }: Props) {
           >
             {/* Header row */}
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+              <div className="flex items-start gap-3">
+                {/* Company initial badge */}
+                <div className="shrink-0 w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/40 border border-teal-100 dark:border-teal-900 flex items-center justify-center text-sm font-bold text-teal-600 dark:text-teal-400">
+                  {exp.company.charAt(0).toUpperCase()}
+                </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h2 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-slate-50">
@@ -120,6 +125,7 @@ export default function ExperienceTimeline({ experiences }: Props) {
                 <p className="text-teal-600 dark:text-teal-400 font-medium text-sm">
                   {exp.company}
                 </p>
+              </div>
               </div>
 
               {/* Dates + duration */}

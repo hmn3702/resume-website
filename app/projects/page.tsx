@@ -24,7 +24,8 @@ export default async function ProjectsPage() {
   const featuredCount = projects.filter((p) => p.featured).length;
 
   return (
-    <div className="section-container py-20 space-y-12">
+    <div className="relative section-container py-20 space-y-12">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
 
       {/* Header */}
       <div className="space-y-3 max-w-xl">
