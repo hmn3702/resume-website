@@ -47,20 +47,6 @@ export default async function AdminDashboardPage() {
         ))}
       </div>
 
-      <div className="bg-white border border-slate-200 rounded-2xl p-6">
-        <h3 className="text-sm font-semibold text-slate-700 mb-3">Quick links</h3>
-        <div className="flex flex-wrap gap-2">
-          {SECTIONS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-teal-50 hover:text-teal-700 text-sm text-slate-600 transition-colors"
-            >
-              Edit {label}
-            </a>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
