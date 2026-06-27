@@ -68,7 +68,6 @@ export interface Database {
           end_date: string | null;
           is_current: boolean;
           description: string | null;
-          order: number;
           created_at: string;
         };
         Insert: {
@@ -80,7 +79,6 @@ export interface Database {
           end_date?: string | null;
           is_current?: boolean;
           description?: string | null;
-          order?: number;
           created_at?: string;
         };
         Update: {
@@ -92,7 +90,6 @@ export interface Database {
           end_date?: string | null;
           is_current?: boolean;
           description?: string | null;
-          order?: number;
           created_at?: string;
         };
         Relationships: [];

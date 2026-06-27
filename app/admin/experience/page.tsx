@@ -5,7 +5,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Experience } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 
-const EMPTY: Omit<Experience, "id" | "created_at"> = {
+const EMPTY: Omit<Experience, "id" | "created_at" | "order"> = {
   role: "",
   company: "",
   location: "",
@@ -13,7 +13,6 @@ const EMPTY: Omit<Experience, "id" | "created_at"> = {
   end_date: null,
   is_current: false,
   description: "",
-  order: 0,
 };
 
 export default function AdminExperiencePage() {
@@ -30,7 +29,7 @@ export default function AdminExperiencePage() {
     const { data } = await supabase
       .from("experience")
       .select("*")
-      .order("order", { ascending: true });
+      .order("start_date", { ascending: false });
     setItems((data ?? []) as Experience[]);
     setLoading(false);
   }
@@ -53,7 +52,6 @@ export default function AdminExperiencePage() {
       end_date: item.end_date ?? null,
       is_current: item.is_current,
       description: item.description ?? "",
-      order: item.order,
     });
     setPanelOpen(true);
   };
@@ -261,16 +259,6 @@ export default function AdminExperiencePage() {
                   value={form.description ?? ""}
                   onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
                   className={`${inputClass} resize-none`}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
-                <input
-                  type="number"
-                  value={form.order}
-                  onChange={(e) => setForm((p) => ({ ...p, order: Number(e.target.value) }))}
-                  className={inputClass}
                 />
               </div>
 
