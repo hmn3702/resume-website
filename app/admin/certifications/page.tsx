@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Certification } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { AdminCardGridSkeleton } from "@/components/ui/Skeleton";
 
 type CertForm = Omit<Certification, "id" | "created_at">;
 
@@ -94,7 +95,7 @@ export default function AdminCertificationsPage() {
 
       {/* Card grid */}
       {loading ? (
-        <div className="flex items-center justify-center h-48 text-slate-400 text-sm">Loading…</div>
+        <AdminCardGridSkeleton count={6} cols={3} />
       ) : items.length === 0 ? (
         <div className="flex items-center justify-center h-48 text-slate-400 text-sm">No certifications yet.</div>
       ) : (

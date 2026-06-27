@@ -5,6 +5,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Profile, Database } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
 
@@ -76,8 +77,10 @@ export default function AdminProfilePage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-48 text-slate-400 text-sm">
-        Loading…
+      <div className="max-w-2xl space-y-6 animate-pulse">
+        <div className="h-7 w-24 bg-slate-200 rounded" />
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 h-24" />
+        <AdminTableSkeleton cols={1} rows={7} />
       </div>
     );
   }

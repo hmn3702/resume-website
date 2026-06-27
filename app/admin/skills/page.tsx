@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Skill } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type Level = Skill["level"];
 const LEVELS: Level[] = ["beginner", "intermediate", "advanced", "expert"];
@@ -79,7 +80,17 @@ export default function AdminSkillsPage() {
     "rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500 transition-shadow";
 
   if (loading) {
-    return <div className="flex items-center justify-center h-48 text-slate-400 text-sm">Loading…</div>;
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="space-y-1">
+            <div className="h-7 w-16 bg-slate-200 rounded animate-pulse" />
+            <div className="h-4 w-40 bg-slate-100 rounded animate-pulse" />
+          </div>
+        </div>
+        <AdminTableSkeleton cols={5} rows={8} />
+      </div>
+    );
   }
 
   return (

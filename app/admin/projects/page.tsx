@@ -5,6 +5,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Project } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
+import { AdminCardGridSkeleton } from "@/components/ui/Skeleton";
 
 type ProjectForm = Omit<Project, "id" | "created_at" | "order"> & { tech_stack_raw: string };
 
@@ -125,7 +126,7 @@ export default function AdminProjectsPage() {
 
       {/* Card grid */}
       {loading ? (
-        <div className="flex items-center justify-center h-48 text-slate-400 text-sm">Loading…</div>
+        <AdminCardGridSkeleton count={4} cols={2} />
       ) : items.length === 0 ? (
         <div className="flex items-center justify-center h-48 text-slate-400 text-sm">No projects yet. Add your first one!</div>
       ) : (

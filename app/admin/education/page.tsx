@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Education } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type EduForm = Omit<Education, "id" | "created_at">;
 
@@ -85,10 +86,9 @@ export default function AdminEducationPage() {
         </button>
       </div>
 
+      {loading ? <AdminTableSkeleton cols={4} rows={3} /> : (
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-        {loading ? (
-          <div className="p-8 text-center text-slate-400 text-sm">Loading…</div>
-        ) : items.length === 0 ? (
+        {items.length === 0 ? (
           <div className="p-8 text-center text-slate-400 text-sm">No education entries yet.</div>
         ) : (
           <table className="w-full text-sm">
@@ -118,6 +118,7 @@ export default function AdminEducationPage() {
           </table>
         )}
       </div>
+      )}
 
       {panelOpen && (
         <div className="fixed inset-0 z-50 flex">

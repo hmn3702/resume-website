@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
@@ -13,6 +13,12 @@ const inter = Inter({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nghiaha.vercel.app";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -46,14 +52,12 @@ export const metadata: Metadata = {
     description:
       "Data Analyst and Data Science graduate based in Brisbane, Australia. " +
       "Skilled in Python, SQL, Power BI, Tableau, and machine learning.",
-    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nghia Ha | Data Analyst",
     description:
       "Data Analyst and Data Science graduate based in Brisbane, Australia.",
-    images: ["/og-image.png"],
   },
   alternates: {
     canonical: SITE_URL,
@@ -62,11 +66,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true },
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
   },
 };
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Experience } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 const EMPTY: Omit<Experience, "id" | "created_at"> = {
   role: "",
@@ -120,10 +121,9 @@ export default function AdminExperiencePage() {
       </div>
 
       {/* Table */}
+      {loading ? <AdminTableSkeleton cols={5} rows={4} /> : (
       <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden">
-        {loading ? (
-          <div className="p-8 text-center text-slate-400 text-sm">Loading…</div>
-        ) : items.length === 0 ? (
+        {items.length === 0 ? (
           <div className="p-8 text-center text-slate-400 text-sm">No experience entries yet.</div>
         ) : (
           <table className="w-full text-sm">
@@ -173,6 +173,7 @@ export default function AdminExperiencePage() {
           </table>
         )}
       </div>
+      )}
 
       {/* Slide-in panel */}
       {panelOpen && (

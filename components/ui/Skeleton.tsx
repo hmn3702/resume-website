@@ -40,6 +40,44 @@ export function CardGridSkeleton({ count = 6 }: { count?: number }) {
   );
 }
 
+export function AdminTableSkeleton({ cols = 4, rows = 5 }: { cols?: number; rows?: number }) {
+  return (
+    <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden animate-pulse">
+      <div className="border-b border-slate-200 bg-slate-50 px-5 py-3 flex gap-8">
+        {Array.from({ length: cols }).map((_, i) => (
+          <Skeleton key={i} className="h-2.5 w-16 rounded" />
+        ))}
+      </div>
+      <div className="divide-y divide-slate-100">
+        {Array.from({ length: rows }).map((_, i) => (
+          <div key={i} className="px-5 py-4 flex gap-8">
+            {Array.from({ length: cols }).map((_, j) => (
+              <Skeleton key={j} className={`h-3 rounded ${j === 0 ? "w-32" : "w-24"}`} />
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function AdminCardGridSkeleton({ count = 6, cols = 3 }: { count?: number; cols?: number }) {
+  return (
+    <div className={`grid grid-cols-1 sm:grid-cols-2 ${cols >= 3 ? "lg:grid-cols-3" : ""} gap-4 animate-pulse`}>
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className="bg-white border border-slate-200 rounded-2xl p-5 space-y-3">
+          <Skeleton className="h-4 w-3/4 rounded" />
+          <Skeleton className="h-3 w-1/2 rounded" />
+          <div className="pt-2 border-t border-slate-100 flex gap-3">
+            <Skeleton className="h-3 flex-1 rounded" />
+            <Skeleton className="h-3 flex-1 rounded" />
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export function TimelineSkeleton({ count = 4 }: { count?: number }) {
   return (
     <div className="space-y-8 ml-4 animate-pulse">
