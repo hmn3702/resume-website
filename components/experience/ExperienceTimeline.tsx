@@ -7,17 +7,22 @@ interface Props {
   experiences: Experience[];
 }
 
+function parseYearMonth(dateStr: string): Date {
+  const [y, m] = dateStr.split("-").map(Number);
+  return new Date(y, (m || 1) - 1);
+}
+
 function formatDate(dateStr: string | null) {
   if (!dateStr) return "Present";
-  return new Date(dateStr).toLocaleDateString("en-AU", {
+  return parseYearMonth(dateStr).toLocaleDateString("en-AU", {
     month: "short",
     year: "numeric",
   });
 }
 
 function duration(start: string, end: string | null): string {
-  const startDate = new Date(start);
-  const endDate = end ? new Date(end) : new Date();
+  const startDate = parseYearMonth(start);
+  const endDate = end ? parseYearMonth(end) : new Date();
   const months =
     (endDate.getFullYear() - startDate.getFullYear()) * 12 +
     (endDate.getMonth() - startDate.getMonth());
