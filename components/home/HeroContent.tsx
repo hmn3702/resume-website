@@ -45,7 +45,7 @@ export default function HeroContent({ profile }: Props) {
       >
         {profile?.avatar_url ? (
           <>
-            <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
+            <div className="avatar-ring relative w-28 h-28 sm:w-32 sm:h-32 rounded-full overflow-hidden">
               <Image
                 src={profile.avatar_url}
                 alt={name}
@@ -58,7 +58,7 @@ export default function HeroContent({ profile }: Props) {
             <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-teal-400 border-2 border-white dark:border-slate-950" />
           </>
         ) : (
-          <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
+          <div className="avatar-ring w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-gradient-to-br from-teal-400 to-teal-600 flex items-center justify-center">
             <span className="text-3xl font-bold text-white select-none">
               {name.split(" ").map((n) => n[0]).slice(0, 2).join("")}
             </span>
