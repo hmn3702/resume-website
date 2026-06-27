@@ -12,6 +12,7 @@ export default function AdminLoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [staySignedIn, setStaySignedIn] = useState(true);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +31,12 @@ export default function AdminLoginPage() {
         return;
       }
 
+      if (staySignedIn) {
+        localStorage.removeItem("nh_admin_nosave");
+      } else {
+        localStorage.setItem("nh_admin_nosave", "1");
+      }
+      sessionStorage.setItem("nh_admin_tab", "1");
       router.push("/admin/dashboard");
       router.refresh();
     } catch (err) {
@@ -119,6 +126,16 @@ export default function AdminLoginPage() {
                 </button>
               </div>
             </div>
+
+            <label className="flex items-center gap-2.5 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={staySignedIn}
+                onChange={(e) => setStaySignedIn(e.target.checked)}
+                className="w-4 h-4 rounded border-slate-600 bg-slate-800 text-teal-500 focus:ring-teal-500 focus:ring-offset-slate-900"
+              />
+              <span className="text-sm text-slate-300">Stay signed in</span>
+            </label>
 
             {error && (
               <div className="flex items-start gap-2.5 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-400">

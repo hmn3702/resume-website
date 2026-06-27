@@ -12,6 +12,7 @@ export default function AdminTopBar({ email }: Props) {
   const supabase = createSupabaseBrowserClient();
 
   const handleSignOut = async () => {
+    localStorage.removeItem("nh_admin_nosave");
     await supabase.auth.signOut();
     router.push("/admin/login");
     router.refresh();
