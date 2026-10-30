@@ -13,6 +13,28 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [staySignedIn, setStaySignedIn] = useState(true);
+  const [resetSent, setResetSent] = useState(false);
+
+  const handleForgotPassword = async () => {
+    setError(null);
+    setResetSent(false);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      setError("Enter your email address above to reset your password.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: `${window.location.origin}/auth/reset-password`,
+      });
+      if (error) throw error;
+      setResetSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Could not send the reset email. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -125,6 +147,14 @@ export default function AdminLoginPage() {
                   )}
                 </button>
               </div>
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                disabled={loading}
+                className="mt-1 min-h-[44px] text-sm text-accent-400 hover:text-accent-300 disabled:opacity-60"
+              >
+                Forgot password?
+              </button>
             </div>
 
             <label className="flex items-center gap-2.5 cursor-pointer select-none">
@@ -137,8 +167,13 @@ export default function AdminLoginPage() {
               <span className="text-sm text-slate-300">Stay signed in</span>
             </label>
 
+            {resetSent && (
+              <p role="status" className="rounded-xl border border-accent-400/30 bg-accent-950 px-4 py-3 text-sm text-slate-200">
+                If an account exists for this email, you&apos;ll receive a reset link. Open the latest email in this browser to choose a new password.
+              </p>
+            )}
             {error && (
-              <div className="flex items-start gap-2.5 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-400">
+              <div role="alert" className="flex items-start gap-2.5 rounded-xl bg-red-500/10 border border-red-500/30 px-4 py-3 text-sm text-red-400">
                 <svg
                   className="w-4 h-4 mt-0.5 shrink-0"
                   fill="none"

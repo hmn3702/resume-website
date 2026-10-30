@@ -7,7 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
 import { AdminCardGridSkeleton } from "@/components/ui/Skeleton";
 
-type ProjectForm = Omit<Project, "id" | "created_at" | "order"> & { tech_stack_raw: string };
+type ProjectForm = Omit<Project, "id" | "created_at" | "order" | "hidden"> & { tech_stack_raw: string };
 
 const EMPTY: ProjectForm = {
   title: "",
@@ -29,6 +29,7 @@ export default function AdminProjectsPage() {
   const [form, setForm] = useState<ProjectForm>({ ...EMPTY });
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [visibilitySaving, setVisibilitySaving] = useState<string | null>(null);
 
   async function load() {
     const { data } = await supabase
@@ -92,6 +93,22 @@ export default function AdminProjectsPage() {
     else { toast.success(item.featured ? "Unfeatured." : "Featured!"); load(); }
   };
 
+  const toggleVisibility = async (item: Project) => {
+    setVisibilitySaving(item.id);
+    try {
+      const { data, error } = await supabase.from("projects")
+        .update({ hidden: !item.hidden }).eq("id", item.id).select("id").single();
+      if (error) throw error;
+      if (!data) throw new Error("Project could not be updated. Check your admin permissions.");
+      toast.success(item.hidden ? "Project is visible." : "Project hidden from the website.");
+      await load();
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not update project visibility.");
+    } finally {
+      setVisibilitySaving(null);
+    }
+  };
+
   const handleDelete = async () => {
     if (!deleteId) return;
     const { error } = await supabase.from("projects").delete().eq("id", deleteId);
@@ -140,8 +157,9 @@ export default function AdminProjectsPage() {
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <p className="font-semibold text-slate-900">{item.title}</p>
+                    {item.hidden && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">Hidden</span>}
                     {item.featured && (
                       <span className="px-1.5 py-0.5 rounded-full bg-teal-100 text-teal-700 text-xs font-medium">
                         Featured
@@ -172,6 +190,14 @@ export default function AdminProjectsPage() {
 
               {/* Actions */}
               <div className="flex items-center gap-2 pt-1 border-t border-slate-100">
+                <button
+                  onClick={() => toggleVisibility(item)}
+                  disabled={visibilitySaving !== null}
+                  aria-label={`${item.hidden ? "Show" : "Hide"} ${item.title} on the website`}
+                  className="flex-1 min-h-[44px] text-xs text-slate-600 hover:text-teal-600 font-medium disabled:opacity-50 transition-colors"
+                >
+                  {visibilitySaving === item.id ? "Saving…" : item.hidden ? "Show" : "Hide"}
+                </button>
                 <button
                   onClick={() => toggleFeatured(item)}
                   className={`flex-1 text-xs font-medium py-1 transition-colors ${

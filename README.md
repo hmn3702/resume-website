@@ -57,7 +57,11 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Admin Panel
 
-Navigate to `/admin/login` and sign in with your Supabase Auth credentials. The admin panel lets you manage:
+Navigate to `/admin/login` and sign in with your Supabase Auth credentials. To recover a password, enter your email and select **Forgot password?**, then open the latest recovery email in the same browser.
+
+In Supabase **Authentication → URL Configuration → Redirect URLs**, allow `http://localhost:3000/auth/reset-password` and the equivalent URL on your production domain. The recovery email template must use `{{ .ConfirmationURL }}` so Supabase verifies the token before redirecting to the reset page. Expired or used links require a new email.
+
+The admin panel lets you manage:
 
 - **Profile** — name, title, bio, avatar, social links
 - **Experience** — work history with dates, location, bullet points

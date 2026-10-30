@@ -62,29 +62,30 @@ export default function ProjectsGrid({ projects }: Props) {
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-60px" }}
-      className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      className="grid md:grid-cols-2 gap-8"
     >
-      {sorted.map((project) => {
+      {sorted.map((project, index) => {
+        const spotlight = index === 0 && project.featured;
 
         return (
           <motion.article
             key={project.id}
             variants={item}
-            className="group card overflow-hidden flex flex-col hover:border-accent-400/40 dark:hover:border-accent-600/40 transition-all duration-200"
+            className={`group card overflow-hidden flex flex-col hover:border-accent-400/40 dark:hover:border-accent-600/40 transition-colors duration-200 ${spotlight ? "md:col-span-2 md:grid md:grid-cols-2" : ""}`}
           >
             {/* Image / neutral fallback */}
-            <div className="relative h-44 w-full overflow-hidden">
+            <div className={`relative aspect-[4/3] w-full overflow-hidden ${spotlight ? "md:aspect-auto md:min-h-96" : ""}`}>
               {project.image_url ? (
                 <Image
                   src={project.image_url}
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 767px) 100vw, (max-width: 1152px) 50vw, 528px"
                 />
               ) : (
                 <div className="w-full h-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
-                  <span className="text-4xl" aria-hidden="true">💡</span>
+                  <span className="font-display text-7xl font-semibold tracking-tighter text-slate-500 dark:text-slate-400" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
                 </div>
               )}
 
@@ -102,12 +103,12 @@ export default function ProjectsGrid({ projects }: Props) {
             </div>
 
             {/* Card body */}
-            <div className="p-5 flex flex-col gap-3 flex-1">
-              <h2 className="font-semibold text-slate-900 dark:text-slate-50 text-base leading-snug">
+            <div className={`p-6 sm:p-8 flex flex-col gap-4 flex-1 min-w-0 ${spotlight ? "md:justify-center md:p-10" : ""}`}>
+              <h2 className={`font-display font-semibold text-slate-900 dark:text-slate-50 leading-tight break-words ${spotlight ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
                 {project.title}
               </h2>
 
-              <p className="text-[17px] text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
+              <p className="text-[17px] text-slate-600 dark:text-slate-400 leading-relaxed break-words">
                 {project.description}
               </p>
 
@@ -139,7 +140,7 @@ export default function ProjectsGrid({ projects }: Props) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                           d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                       </svg>
-                      Live Site
+                      Live demo
                     </a>
                   )}
                   {project.github_url && (

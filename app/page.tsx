@@ -20,6 +20,7 @@ async function getHomeData() {
       .from("projects")
       .select("*")
       .eq("featured", true)
+      .eq("hidden", false)
       .order("order")
       .limit(3),
     supabase

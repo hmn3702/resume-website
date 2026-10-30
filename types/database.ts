@@ -194,6 +194,7 @@ export interface Database {
           github_url: string | null;
           image_url: string | null;
           featured: boolean;
+          hidden: boolean;
           order: number;
           created_at: string;
         };
@@ -206,6 +207,7 @@ export interface Database {
           github_url?: string | null;
           image_url?: string | null;
           featured?: boolean;
+          hidden?: boolean;
           order?: number;
           created_at?: string;
         };
@@ -218,6 +220,7 @@ export interface Database {
           github_url?: string | null;
           image_url?: string | null;
           featured?: boolean;
+          hidden?: boolean;
           order?: number;
           created_at?: string;
         };
