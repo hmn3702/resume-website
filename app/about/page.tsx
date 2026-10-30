@@ -43,16 +43,15 @@ export default async function AboutPage() {
 
   return (
     <div className="relative section-container py-20 space-y-20">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
 
       {/* Bio */}
       <section className="grid md:grid-cols-2 gap-10 items-center">
         <div className="space-y-5">
-          <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="eyebrow">
             Who I am
           </p>
-          <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-            About <span className="gradient-text">Me</span>
+          <h1 className="page-title font-semibold text-slate-900 dark:text-slate-50">
+            About <span>Me</span>
           </h1>
           <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
             {profile?.bio ??
@@ -61,7 +60,7 @@ export default async function AboutPage() {
           </p>
           {profile?.location && (
             <p className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-              <svg className="w-4 h-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-accent-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                   d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -83,7 +82,7 @@ export default async function AboutPage() {
             <div key={label} className="card p-4 space-y-1">
               <span className="text-xl" aria-hidden="true">{icon}</span>
               <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{label}</p>
-              <p className="text-sm font-medium text-slate-800 dark:text-slate-200 leading-snug">{value}</p>
+              <p className="text-sm font-normal text-slate-800 dark:text-slate-200 leading-snug">{value}</p>
             </div>
           ))}
         </div>
@@ -93,10 +92,10 @@ export default async function AboutPage() {
       {skills.length > 0 && (
         <section className="space-y-6">
           <div className="space-y-1">
-            <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+            <p className="eyebrow">
               Technical toolkit
             </p>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+            <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
               Skills &amp; Technologies
             </h2>
           </div>
@@ -107,10 +106,10 @@ export default async function AboutPage() {
       {/* Languages */}
       <section className="space-y-6">
         <div className="space-y-1">
-          <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="eyebrow">
             Communication
           </p>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
             Languages
           </h2>
         </div>

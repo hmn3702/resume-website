@@ -16,8 +16,8 @@ export default function LanguagesSection() {
       {LANGUAGES.map(({ lang, level, flag, bar }, i) => (
         <motion.div
           key={lang}
-          initial={{ opacity: 0, y: reduce ? 0 : 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: reduce ? 0 : i * 0.1 }}
           className="card p-5 space-y-3"
@@ -26,7 +26,7 @@ export default function LanguagesSection() {
             <span className="text-2xl" aria-hidden="true">{flag}</span>
             <div>
               <p className="font-semibold text-slate-800 dark:text-slate-200 text-sm">{lang}</p>
-              <p className="text-xs text-teal-600 dark:text-teal-400">{level}</p>
+              <p className="text-xs text-accent-600 dark:text-accent-400">{level}</p>
             </div>
           </div>
 
@@ -37,7 +37,7 @@ export default function LanguagesSection() {
               whileInView={{ width: `${bar}%` }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: reduce ? 0 : i * 0.1 + 0.2, ease: "easeOut" }}
-              className="h-full bg-teal-500 rounded-full"
+              className="h-full bg-accent-500 rounded-full"
             />
           </div>
         </motion.div>

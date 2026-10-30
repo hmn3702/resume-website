@@ -37,14 +37,14 @@ export default async function Footer() {
   ].filter((s) => s.href); // only render if URL exists in DB
 
   return (
-    <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-950/50">
-      <div className="section-container py-12">
+    <footer className="bg-slate-100 dark:bg-slate-900">
+      <div className="section-container py-16">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-10 pb-10 border-b border-slate-200 dark:border-slate-800">
 
           {/* Brand */}
           <div className="space-y-3">
-            <Link href="/" className="text-xl font-bold text-slate-900 dark:text-slate-50">
-              NH<span className="text-teal-500">.</span>
+            <Link href="/" className="text-xl font-semibold text-slate-900 dark:text-slate-50">
+              NH<span className="text-accent-500">.</span>
             </Link>
             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
               Data Analyst &amp; Data Science Graduate based in Brisbane, Australia.
@@ -59,7 +59,7 @@ export default async function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={label}
-                    className="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-950/40 transition-colors"
+                    className="min-w-[44px] min-h-[44px] inline-flex items-center justify-center p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-accent-50 dark:hover:bg-accent-950/40 transition-colors"
                   >
                     {icon}
                   </a>
@@ -70,7 +70,7 @@ export default async function Footer() {
 
           {/* Nav links */}
           <div className="space-y-3">
-            <h3 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">
               Navigation
             </h3>
             <ul className="space-y-2">
@@ -78,7 +78,7 @@ export default async function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
                   >
                     {label}
                   </Link>
@@ -89,7 +89,7 @@ export default async function Footer() {
 
           {/* Contact */}
           <div className="space-y-3">
-            <h3 className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+            <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-200">
               Contact
             </h3>
             <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
@@ -97,7 +97,7 @@ export default async function Footer() {
                 <li>
                   <a
                     href={`mailto:${profile.email}`}
-                    className="hover:text-teal-600 dark:hover:text-teal-400 transition-colors break-all"
+                    className="hover:text-accent-600 dark:hover:text-accent-400 transition-colors break-all"
                   >
                     {profile.email}
                   </a>
@@ -105,7 +105,7 @@ export default async function Footer() {
               )}
               {profile?.location && (
                 <li className="flex items-center gap-1.5">
-                  <svg className="w-3.5 h-3.5 text-teal-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-3.5 h-3.5 text-accent-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                       d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -119,15 +119,15 @@ export default async function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 dark:text-slate-600">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 dark:text-slate-400">
           <p>© {new Date().getFullYear()} {profile?.name ?? "Ha Minh Nghia"}. All rights reserved.</p>
           <p>
-            Built with <span className="text-teal-500">♥</span> using{" "}
+            Built with <span className="text-accent-500">♥</span> using{" "}
             <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer"
-              className="hover:text-teal-500 transition-colors">Next.js</a>
+              className="hover:text-accent-500 transition-colors">Next.js</a>
             {" "}&amp;{" "}
             <a href="https://supabase.com" target="_blank" rel="noopener noreferrer"
-              className="hover:text-teal-500 transition-colors">Supabase</a>
+              className="hover:text-accent-500 transition-colors">Supabase</a>
           </p>
         </div>
       </div>

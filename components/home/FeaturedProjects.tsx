@@ -5,19 +5,19 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
   if (!projects.length) return null;
 
   return (
-    <section className="bg-slate-900 py-20 px-4">
+    <section className="dark-tile py-16 sm:py-20 px-5">
       <div className="section-container">
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-teal-400 text-xs font-semibold tracking-[0.2em] uppercase mb-2">
+            <p className="text-slate-300 text-sm font-normal mb-2">
               Featured Work
             </p>
-            <h2 className="text-3xl font-bold text-white">Selected Projects</h2>
+            <h2 className="text-3xl sm:text-[40px] leading-tight font-semibold text-white">Selected Projects</h2>
           </div>
           <Link
             href="/projects"
-            className="hidden sm:flex items-center gap-1.5 text-sm text-teal-400 hover:text-teal-300 font-medium transition-colors"
+            className="hidden sm:flex items-center gap-1.5 text-sm text-accent-400 hover:text-accent-300 font-normal transition-colors"
           >
             All projects
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -31,11 +31,11 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
           {projects.map((project) => (
             <article
               key={project.id}
-              className="group flex flex-col gap-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:border-teal-500/40 transition-all duration-300"
+              className="group flex flex-col gap-4 bg-slate-800 border border-white/10 rounded-2xl p-6 hover:border-accent-500/40 transition-all duration-300"
             >
               {/* Thumbnail */}
               {project.image_url && (
-                <div className="w-full h-40 rounded-xl overflow-hidden bg-white/5">
+                <div className="w-full h-40 rounded-lg overflow-hidden bg-white/5">
                   <img
                     src={project.image_url}
                     alt={project.title}
@@ -49,7 +49,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
                 <h3 className="font-semibold text-white text-base leading-snug">
                   {project.title}
                 </h3>
-                <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
+                <p className="text-[17px] text-slate-400 line-clamp-2 leading-relaxed">
                   {project.description}
                 </p>
               </div>
@@ -66,7 +66,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
                     </span>
                   ))}
                   {project.tech_stack.length > 4 && (
-                    <span className="px-2 py-0.5 rounded-full bg-white/10 text-slate-500 text-xs">
+                    <span className="px-2 py-0.5 rounded-full bg-white/10 text-slate-400 text-xs">
                       +{project.tech_stack.length - 4}
                     </span>
                   )}
@@ -80,7 +80,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
                     href={project.live_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-xs text-teal-400 hover:text-teal-300 font-medium transition-colors py-2"
+                    className="flex items-center gap-1.5 text-xs text-accent-400 hover:text-accent-300 font-normal transition-colors py-3 min-h-[44px]"
                   >
                     Live demo
                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -93,7 +93,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
                     href={project.github_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-slate-400 hover:text-slate-200 font-medium transition-colors py-2"
+                    className="text-xs text-slate-400 hover:text-slate-200 font-normal transition-colors py-3 min-h-[44px]"
                   >
                     GitHub
                   </a>
@@ -107,7 +107,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
         <div className="mt-8 text-center sm:hidden">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-1.5 text-sm text-teal-400 hover:text-teal-300 font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-accent-400 hover:text-accent-300 font-normal transition-colors"
           >
             View all projects
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

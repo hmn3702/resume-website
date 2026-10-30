@@ -9,16 +9,6 @@ interface Props {
   projects: Project[];
 }
 
-// Deterministic gradient per project (cycles through 6 options)
-const GRADIENTS = [
-  "from-teal-400 to-cyan-600",
-  "from-indigo-400 to-violet-600",
-  "from-orange-400 to-rose-500",
-  "from-emerald-400 to-teal-600",
-  "from-blue-400 to-indigo-600",
-  "from-purple-400 to-pink-500",
-];
-
 export default function ProjectsGrid({ projects }: Props) {
   const reduce = useReducedMotion();
 
@@ -28,8 +18,8 @@ export default function ProjectsGrid({ projects }: Props) {
   };
 
   const item = {
-    hidden: { opacity: 0, y: reduce ? 0 : 24 },
-    show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+    hidden: { opacity: 0 },
+    show:   { opacity: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
   };
 
   // Featured first, then newest first
@@ -53,7 +43,7 @@ export default function ProjectsGrid({ projects }: Props) {
           href="https://github.com/hmn3702"
           target="_blank"
           rel="noopener noreferrer"
-          className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-semibold hover:opacity-90 transition-opacity"
+          className="focus-ring button-primary"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
             <path fillRule="evenodd" clipRule="evenodd"
@@ -74,16 +64,15 @@ export default function ProjectsGrid({ projects }: Props) {
       viewport={{ once: true, margin: "-60px" }}
       className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
     >
-      {sorted.map((project, i) => {
-        const gradient = GRADIENTS[i % GRADIENTS.length];
+      {sorted.map((project) => {
 
         return (
           <motion.article
             key={project.id}
             variants={item}
-            className="group card overflow-hidden flex flex-col hover:-translate-y-1 hover:shadow-xl hover:shadow-teal-500/10 hover:border-teal-400/40 dark:hover:border-teal-600/40 transition-all duration-200"
+            className="group card overflow-hidden flex flex-col hover:border-accent-400/40 dark:hover:border-accent-600/40 transition-all duration-200"
           >
-            {/* Image / gradient fallback */}
+            {/* Image / neutral fallback */}
             <div className="relative h-44 w-full overflow-hidden">
               {project.image_url ? (
                 <Image
@@ -94,7 +83,7 @@ export default function ProjectsGrid({ projects }: Props) {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
               ) : (
-                <div className={`w-full h-full bg-gradient-to-br ${gradient} opacity-80 dark:opacity-60 flex items-center justify-center`}>
+                <div className="w-full h-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
                   <span className="text-4xl" aria-hidden="true">💡</span>
                 </div>
               )}
@@ -102,7 +91,7 @@ export default function ProjectsGrid({ projects }: Props) {
               {/* Featured badge */}
               {project.featured && (
                 <div className="absolute top-3 left-3">
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-teal-500 text-white shadow-md">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-accent-500 text-white">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
@@ -118,7 +107,7 @@ export default function ProjectsGrid({ projects }: Props) {
                 {project.title}
               </h2>
 
-              <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
+              <p className="text-[17px] text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
                 {project.description}
               </p>
 
@@ -128,7 +117,7 @@ export default function ProjectsGrid({ projects }: Props) {
                   {project.tech_stack.map((tech) => (
                     <span
                       key={tech}
-                      className="text-xs px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 border border-teal-100 dark:border-teal-900"
+                      className="text-xs px-2.5 py-0.5 rounded-full bg-accent-50 dark:bg-accent-950/50 text-accent-700 dark:text-accent-300 border border-accent-100 dark:border-accent-900"
                     >
                       {tech}
                     </span>
@@ -138,13 +127,13 @@ export default function ProjectsGrid({ projects }: Props) {
 
               {/* Action buttons */}
               {(project.live_url || project.github_url) && (
-                <div className="flex items-center gap-3 pt-1 mt-auto border-t border-slate-100 dark:border-slate-800">
+                <div className="flex flex-wrap items-center gap-3 pt-4 mt-auto border-t border-slate-100 dark:border-slate-800">
                   {project.live_url && (
                     <a
                       href={project.live_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="focus-ring inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg bg-teal-500 hover:bg-teal-600 text-white transition-colors"
+                      className="focus-ring button-primary text-sm"
                     >
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -158,7 +147,7 @@ export default function ProjectsGrid({ projects }: Props) {
                       href={project.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="focus-ring inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-teal-400 hover:text-teal-600 dark:hover:border-teal-600 dark:hover:text-teal-400 transition-colors"
+                      className="focus-ring button-secondary text-sm"
                     >
                       <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
                         <path fillRule="evenodd" clipRule="evenodd"

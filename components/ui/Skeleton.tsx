@@ -12,9 +12,9 @@ export function HeroSkeleton() {
       <Skeleton className="w-28 h-28 rounded-full" />
       <Skeleton className="w-64 h-8 rounded-xl" />
       <Skeleton className="w-48 h-5 rounded-xl" />
-      <Skeleton className="w-80 h-4 rounded-xl" />
+      <Skeleton className="w-80 max-w-full h-4 rounded-xl" />
       <div className="flex gap-4">
-        <Skeleton className="w-32 h-11 rounded-xl" />
+        <Skeleton className="w-32 h-11 rounded-full" />
         <Skeleton className="w-32 h-11 rounded-xl" />
       </div>
     </div>

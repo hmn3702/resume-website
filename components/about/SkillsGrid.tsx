@@ -25,10 +25,10 @@ const LEVEL_DOTS: Record<Skill["level"], number> = {
 };
 
 const LEVEL_COLOUR: Record<Skill["level"], string> = {
-  beginner:     "bg-teal-300 dark:bg-teal-600",
-  intermediate: "bg-teal-400 dark:bg-teal-500",
-  advanced:     "bg-teal-500",
-  expert:       "bg-teal-600",
+  beginner:     "bg-accent-300 dark:bg-accent-600",
+  intermediate: "bg-accent-400 dark:bg-accent-500",
+  advanced:     "bg-accent-500",
+  expert:       "bg-accent-600",
 };
 
 function LevelDots({ level }: { level: Skill["level"] }) {
@@ -58,19 +58,19 @@ export default function SkillsGrid({ skills }: Props) {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 20 },
-    show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+    hidden: { opacity: 0 },
+    show:   { opacity: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
   };
 
   const chipVariants = {
-    hidden: { opacity: 0, scale: reduce ? 1 : 0.85 },
-    show:   { opacity: 1, scale: 1, transition: { duration: 0.25 } },
+    hidden: { opacity: 0 },
+    show:   { opacity: 1, transition: { duration: 0.25 } },
   };
 
   return (
     <div className="space-y-4">
       {/* Legend — sits above the grid, not inside a card */}
-      <p className="flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
+      <p className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
         {[
           { label: "Beginner",     filled: 1 },
           { label: "Intermediate", filled: 2 },
@@ -83,7 +83,7 @@ export default function SkillsGrid({ skills }: Props) {
                 <span
                   key={i}
                   className={`w-1.5 h-1.5 rounded-full ${
-                    i < filled ? "bg-teal-500" : "bg-slate-200 dark:bg-slate-700"
+                    i < filled ? "bg-accent-500" : "bg-slate-200 dark:bg-slate-700"
                   }`}
                 />
               ))}
@@ -109,14 +109,14 @@ export default function SkillsGrid({ skills }: Props) {
           <motion.div
             key={cat}
             variants={cardVariants}
-            className="card p-5 space-y-4 hover:shadow-md hover:shadow-teal-500/5 transition-shadow"
+            className="card p-5 space-y-4 transition-shadow"
           >
             {/* Category header */}
             <div className="flex items-center gap-2.5">
               <span className="text-xl" aria-hidden="true">
                 {CATEGORY_ICON[cat] ?? "💡"}
               </span>
-              <h3 className="font-semibold text-teal-700 dark:text-teal-400 text-xs uppercase tracking-widest">
+              <h3 className="font-semibold text-slate-900 dark:text-slate-200 text-sm">
                 {cat}
               </h3>
             </div>
@@ -128,8 +128,8 @@ export default function SkillsGrid({ skills }: Props) {
             >
               {catSkills.map((skill) => (
                 <motion.li key={skill.id} variants={chipVariants}>
-                  <div className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-teal-400 dark:hover:border-teal-600 transition-colors cursor-default">
-                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                  <div className="group flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-accent-400 dark:hover:border-accent-600 transition-colors cursor-default">
+                    <span className="text-sm font-normal text-slate-700 dark:text-slate-300">
                       {skill.name}
                     </span>
                     <LevelDots level={skill.level} />

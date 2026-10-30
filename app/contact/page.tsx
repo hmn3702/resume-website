@@ -86,17 +86,16 @@ export default async function ContactPage() {
 
   return (
     <div className="relative section-container py-20">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
       <div className="grid lg:grid-cols-2 gap-16 items-start max-w-5xl">
 
         {/* Left — info */}
         <div className="space-y-8">
           <div className="space-y-4">
-            <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+            <p className="eyebrow">
               Let&apos;s talk
             </p>
-            <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-              Get in <span className="gradient-text">Touch</span>
+            <h1 className="page-title font-semibold text-slate-900 dark:text-slate-50">
+              Get in <span>Touch</span>
             </h1>
             <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
               I&apos;m open to data analyst and data science opportunities. Drop me a
@@ -108,22 +107,22 @@ export default async function ContactPage() {
             <div className="space-y-4">
               {contactLinks.map(({ icon, label, value, href }) => (
                 <div key={label} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-teal-50 dark:bg-teal-950/40 border border-teal-100 dark:border-teal-900 flex items-center justify-center text-teal-600 dark:text-teal-400 shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-accent-50 dark:bg-accent-950/40 border border-accent-100 dark:border-accent-900 flex items-center justify-center text-accent-600 dark:text-accent-400 shrink-0">
                     {icon}
                   </div>
                   <div>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-0.5">{label}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-0.5">{label}</p>
                     {href ? (
                       <a
                         href={href}
                         target={href.startsWith("mailto") ? undefined : "_blank"}
                         rel="noopener noreferrer"
-                        className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+                        className="text-sm font-normal text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors"
                       >
                         {value}
                       </a>
                     ) : (
-                      <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{value}</p>
+                      <p className="text-sm font-normal text-slate-700 dark:text-slate-300">{value}</p>
                     )}
                   </div>
                 </div>

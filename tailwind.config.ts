@@ -1,5 +1,19 @@
 import type { Config } from "tailwindcss";
 
+const action = {
+  50: "#f5f5f7",
+  100: "#e8f2ff",
+  200: "#cce4ff",
+  300: "#80bdff",
+  400: "#2997ff",
+  500: "#0066cc",
+  600: "#0066cc",
+  700: "#005bb5",
+  800: "#004080",
+  900: "#16324f",
+  950: "#152536",
+};
+
 const config: Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,24 +24,28 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        display: ["var(--font-cal)", "sans-serif"],
+        sans: ["-apple-system", "BlinkMacSystemFont", "SF Pro Text", "Segoe UI", "sans-serif"],
+        display: ["-apple-system", "BlinkMacSystemFont", "SF Pro Display", "Segoe UI", "sans-serif"],
       },
       colors: {
-        teal: {
-          50: "#f0fdfa",
-          100: "#ccfbf1",
-          200: "#99f6e4",
-          300: "#5eead4",
-          400: "#2dd4bf",
-          500: "#14b8a6",
-          600: "#0d9488",
-          700: "#0f766e",
-          800: "#115e59",
-          900: "#134e4a",
-          950: "#042f2e",
+        accent: action,
+        // Keep existing admin utilities on the same action palette.
+        teal: action,
+        slate: {
+          50: "#fafafc",
+          100: "#f5f5f7",
+          200: "#e0e0e0",
+          300: "#d2d2d7",
+          400: "#a1a1a6",
+          500: "#6e6e73",
+          600: "#515154",
+          700: "#424245",
+          800: "#333336",
+          900: "#272729",
+          950: "#1d1d1f",
         },
       },
+      borderRadius: { xl: "18px", "2xl": "18px" },
       animation: {
         "fade-in": "fadeIn 0.5s ease-in-out",
         "slide-up": "slideUp 0.5s ease-out",

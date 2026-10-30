@@ -41,15 +41,14 @@ export default async function EducationPage() {
 
   return (
     <div className="relative section-container py-20 space-y-20">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
 
       {/* Page header */}
       <div className="space-y-3 max-w-xl">
-        <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+        <p className="eyebrow">
           Academic background
         </p>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-          Education &amp; <span className="gradient-text">Certifications</span>
+        <h1 className="page-title font-semibold text-slate-900 dark:text-slate-50">
+          Education &amp; <span>Certifications</span>
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
           {education.length} degrees · {certifications.length} professional certifications
@@ -59,10 +58,10 @@ export default async function EducationPage() {
       {/* Education */}
       <section className="space-y-6">
         <div className="space-y-1">
-          <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="eyebrow">
             Degrees
           </p>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
             Academic History
           </h2>
         </div>
@@ -72,10 +71,10 @@ export default async function EducationPage() {
       {/* Certifications */}
       <section className="space-y-6">
         <div className="space-y-1">
-          <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+          <p className="eyebrow">
             Professional development
           </p>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+          <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
             Certifications
           </h2>
         </div>

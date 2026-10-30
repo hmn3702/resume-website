@@ -40,15 +40,14 @@ export default async function ProjectsPage() {
 
   return (
     <div className="relative section-container py-20 space-y-12">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-teal-500/5 to-transparent dark:from-teal-400/5" />
 
       {/* Header */}
       <div className="space-y-3 max-w-xl">
-        <p className="text-teal-600 dark:text-teal-400 text-xs font-medium tracking-[0.2em] uppercase">
+        <p className="eyebrow">
           Portfolio
         </p>
-        <h1 className="text-4xl font-bold text-slate-900 dark:text-slate-50">
-          My <span className="gradient-text">Projects</span>
+        <h1 className="page-title font-semibold text-slate-900 dark:text-slate-50">
+          My <span>Projects</span>
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
           {projects.length === 0

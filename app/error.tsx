@@ -16,7 +16,7 @@ export default function Error({
 
   return (
     <div className="section-container flex flex-col items-center justify-center min-h-[60vh] text-center gap-6">
-      <div className="text-6xl font-bold text-teal-500">!</div>
+      <div className="text-6xl font-semibold text-accent-500">!</div>
       <h2 className="text-2xl font-semibold text-slate-900 dark:text-slate-50">
         Something went wrong
       </h2>
@@ -26,13 +26,13 @@ export default function Error({
       <div className="flex gap-3">
         <button
           onClick={reset}
-          className="px-6 py-3 rounded-xl border border-teal-500 text-teal-500 hover:bg-teal-500/10 font-semibold transition-colors"
+          className="focus-ring button-secondary"
         >
           Try again
         </button>
         <Link
           href="/"
-          className="px-6 py-3 rounded-xl bg-teal-500 hover:bg-teal-600 text-white font-semibold transition-colors"
+          className="focus-ring button-primary"
         >
           Go home
         </Link>
