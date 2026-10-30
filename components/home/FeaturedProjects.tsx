@@ -27,29 +27,38 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
         </div>
 
         {/* Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className={`grid sm:grid-cols-2 gap-5 ${projects.length >= 3 ? "lg:grid-cols-3" : ""}`}>
           {projects.map((project) => (
             <article
               key={project.id}
-              className="group flex flex-col gap-4 bg-slate-800 border border-white/10 rounded-2xl p-6 hover:border-accent-500/40 transition-all duration-300"
+              className="group min-w-0 flex flex-col gap-4 bg-slate-800 border border-white/10 rounded-2xl p-6 hover:border-accent-500/40 transition-colors duration-300"
             >
               {/* Thumbnail */}
-              {project.image_url && (
-                <div className="w-full h-40 rounded-lg overflow-hidden bg-white/5">
+              <div className="w-full h-40 shrink-0 rounded-lg overflow-hidden bg-white/5">
+                {project.image_url ? (
                   <img
                     src={project.image_url}
                     alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
                   />
-                </div>
-              )}
+                ) : (
+                  <div className="h-full flex flex-col items-center justify-center gap-3 text-slate-300">
+                    <svg aria-hidden="true" className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+                      <rect x="3" y="3" width="18" height="18" rx="2" />
+                      <circle cx="8" cy="8" r="1.5" />
+                      <path d="m3 17 5-5 4 4 4-6 5 7" />
+                    </svg>
+                    <span className="text-sm">No image available</span>
+                  </div>
+                )}
+              </div>
 
               {/* Content */}
               <div className="flex-1 space-y-2">
-                <h3 className="font-semibold text-white text-base leading-snug">
+                <h3 className="font-semibold text-white text-base leading-snug [overflow-wrap:anywhere]">
                   {project.title}
                 </h3>
-                <p className="text-[17px] text-slate-400 line-clamp-2 leading-relaxed">
+                <p className="text-[17px] text-slate-400 line-clamp-2 leading-relaxed [overflow-wrap:anywhere]">
                   {project.description}
                 </p>
               </div>
@@ -60,7 +69,7 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
                   {project.tech_stack.slice(0, 4).map((t) => (
                     <span
                       key={t}
-                      className="px-2 py-0.5 rounded-full bg-white/10 text-slate-300 text-xs"
+                      className="max-w-full break-words px-2 py-0.5 rounded-full bg-white/10 text-slate-300 text-xs"
                     >
                       {t}
                     </span>
