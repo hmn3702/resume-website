@@ -12,7 +12,7 @@ interface ThemeContextValue {
 }
 
 const ThemeContext = createContext<ThemeContextValue>({
-  theme: "system",
+  theme: "light",
   setTheme: () => {},
   resolvedTheme: "light",
 });
@@ -24,7 +24,7 @@ export default function ThemeProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [theme, setThemeState] = useState<Theme>("system");
+  const [theme, setThemeState] = useState<Theme>("light");
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 
   const applyTheme = (t: Theme) => {
@@ -43,7 +43,7 @@ export default function ThemeProvider({
   };
 
   useEffect(() => {
-    const saved = (localStorage.getItem("theme") as Theme) ?? "system";
+    const saved = (localStorage.getItem("theme") as Theme) ?? "light";
     setThemeState(saved);
     applyTheme(saved);
 
