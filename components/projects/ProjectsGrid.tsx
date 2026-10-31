@@ -3,6 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import ProjectCover from "./ProjectCover";
 import type { Project } from "@/types/database";
 
 interface Props {
@@ -71,10 +72,10 @@ export default function ProjectsGrid({ projects }: Props) {
           <motion.article
             key={project.id}
             variants={item}
-            className={`group card overflow-hidden flex flex-col hover:border-accent-400/40 dark:hover:border-accent-600/40 transition-colors duration-200 ${spotlight ? `md:col-span-2 ${project.image_url ? "md:grid md:grid-cols-2" : ""}` : ""}`}
+            className={`group card overflow-hidden flex flex-col hover:border-accent-400/40 dark:hover:border-accent-600/40 transition-colors duration-200 ${spotlight ? "md:col-span-2 md:grid md:grid-cols-2" : ""}`}
           >
-            {project.image_url && (
             <div className={`relative aspect-[4/3] w-full overflow-hidden ${spotlight ? "md:aspect-auto md:min-h-96" : ""}`}>
+              {project.image_url ? (
                 <Image
                   src={project.image_url}
                   alt={project.title}
@@ -82,6 +83,9 @@ export default function ProjectsGrid({ projects }: Props) {
                   className="object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 767px) 100vw, (max-width: 1152px) 50vw, 528px"
                 />
+              ) : (
+                <ProjectCover project={project} />
+              )}
 
               {/* Featured badge */}
               {project.featured && (
@@ -95,19 +99,12 @@ export default function ProjectsGrid({ projects }: Props) {
                 </div>
               )}
             </div>
-            )}
 
             {/* Card body */}
             <div className={`p-6 sm:p-8 flex flex-col gap-4 flex-1 min-w-0 ${spotlight ? "md:justify-center md:p-10" : ""}`}>
               <h2 className={`font-display font-semibold text-slate-900 dark:text-slate-50 leading-tight break-words ${spotlight ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
                 {project.title}
               </h2>
-
-              {project.featured && !project.image_url && (
-                <span className="self-start px-2.5 py-1 rounded-full text-xs font-semibold bg-accent-500 text-white">
-                  Featured
-                </span>
-              )}
 
               <p className="text-[17px] text-slate-600 dark:text-slate-400 leading-relaxed break-words">
                 {project.description}
