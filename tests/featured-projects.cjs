@@ -16,12 +16,14 @@ component._compile(ts.transpileModule(fs.readFileSync(filename, 'utf8'), {
 }).outputText, filename);
 const FeaturedProjects = component.exports.default;
 
-test('projects without images retain a preview placeholder beside projects with images', () => {
+test('projects without images start with their title beside projects with images', () => {
   const project = { id: 'one', title: 'A_LONG_PROJECT_TITLE_WITHOUT_SPACES', description: 'Project description', tech_stack: [], github_url: 'https://github.com/example/project', live_url: null, image_url: null };
   const html = renderToStaticMarkup(React.createElement(FeaturedProjects, {
     projects: [{ ...project, id: 'two', image_url: '/preview.png' }, project],
   }));
-  assert.match(html, /No image available/);
+  assert.doesNotMatch(html, /No image available/);
+  const imagelessCard = html.match(/<article[^>]*>[\s\S]*?<\/article>/g)[1];
+  assert.match(imagelessCard, /^<article[^>]*><div[^>]*><h3/);
   assert.equal((html.match(/<article/g) || []).length, 2);
   assert.equal((html.match(/<img/g) || []).length, 1);
   assert.match(html, /A_LONG_PROJECT_TITLE_WITHOUT_SPACES/);

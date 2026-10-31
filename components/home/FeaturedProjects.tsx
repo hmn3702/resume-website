@@ -34,24 +34,15 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
               className="group min-w-0 flex flex-col gap-4 bg-slate-800 border border-white/10 rounded-2xl p-6 hover:border-accent-500/40 transition-colors duration-300"
             >
               {/* Thumbnail */}
+              {project.image_url && (
               <div className="w-full h-40 shrink-0 rounded-lg overflow-hidden bg-white/5">
-                {project.image_url ? (
                   <img
                     src={project.image_url}
                     alt={project.title}
                     className="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
                   />
-                ) : (
-                  <div className="h-full flex flex-col items-center justify-center gap-3 text-slate-300">
-                    <svg aria-hidden="true" className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-                      <rect x="3" y="3" width="18" height="18" rx="2" />
-                      <circle cx="8" cy="8" r="1.5" />
-                      <path d="m3 17 5-5 4 4 4-6 5 7" />
-                    </svg>
-                    <span className="text-sm">No image available</span>
-                  </div>
-                )}
               </div>
+              )}
 
               {/* Content */}
               <div className="flex-1 space-y-2">
