@@ -12,6 +12,43 @@ interface Props {
 
 const MAX_MB = 10;
 
+const BUCKET = "resume-assets";
+const CV_FOLDER = "cv";
+
+/** Storage path ("cv/123.pdf") of a public URL in this bucket, or null if it isn't one. */
+function cvPathFromUrl(url: string): string | null {
+  const marker = `/object/public/${BUCKET}/`;
+  const i = url.indexOf(marker);
+  if (i === -1) return null;
+  return decodeURIComponent(url.slice(i + marker.length).split("?")[0]);
+}
+
+/**
+ * Delete every file in cv/ except the CV the profile currently uses.
+ * Call ONLY after the profile save succeeded, so the live CV is never removed.
+ * Returns the number of files deleted.
+ */
+export async function pruneOldCvs(
+  supabase: ReturnType<typeof createSupabaseBrowserClient>,
+  keepUrl: string | null | undefined
+): Promise<number> {
+  const keepPath = keepUrl ? cvPathFromUrl(keepUrl) : null;
+  // Safety: the saved URL points into our bucket but couldn't be parsed — don't touch anything.
+  if (keepUrl && keepUrl.includes(`/${BUCKET}/`) && !keepPath) return 0;
+
+  const { data, error } = await supabase.storage.from(BUCKET).list(CV_FOLDER, { limit: 1000 });
+  if (error || !data) return 0;
+
+  const stale = data
+    .filter((f) => f.name && !f.name.startsWith("."))
+    .map((f) => `${CV_FOLDER}/${f.name}`)
+    .filter((path) => path !== keepPath);
+  if (!stale.length) return 0;
+
+  const { error: removeError } = await supabase.storage.from(BUCKET).remove(stale);
+  return removeError ? 0 : stale.length;
+}
+
 export default function CvUpload({ currentUrl, onChange }: Props) {
   const [supabase] = useState(() => createSupabaseBrowserClient());
   const [uploading, setUploading] = useState(false);
@@ -31,9 +68,9 @@ export default function CvUpload({ currentUrl, onChange }: Props) {
     }
 
     setUploading(true);
-    const path = `cv/${Date.now()}.pdf`;
+    const path = `${CV_FOLDER}/${Date.now()}.pdf`;
     const { data, error: uploadError } = await supabase.storage
-      .from("resume-assets")
+      .from(BUCKET)
       .upload(path, file, { upsert: true, contentType: "application/pdf" });
 
     if (uploadError) {
@@ -42,7 +79,7 @@ export default function CvUpload({ currentUrl, onChange }: Props) {
       return;
     }
 
-    const { data: urlData } = supabase.storage.from("resume-assets").getPublicUrl(data.path);
+    const { data: urlData } = supabase.storage.from(BUCKET).getPublicUrl(data.path);
     onChange(urlData.publicUrl);
     setUploading(false);
   };
@@ -103,7 +140,7 @@ export default function CvUpload({ currentUrl, onChange }: Props) {
         )}
       </div>
 
-      <p className="text-xs text-slate-400">PDF · max {MAX_MB} MB · click &quot;Save changes&quot; below to publish.</p>
+      <p className="text-xs text-slate-400">PDF · max {MAX_MB} MB · click &quot;Save changes&quot; below to publish. Older CV files are deleted after saving.</p>
       {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   );

@@ -6,7 +6,7 @@ import type { Profile, Database } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 import { revalidateSite } from "@/lib/revalidate-site";
 import ImageUpload from "@/components/admin/ImageUpload";
-import CvUpload from "@/components/admin/CvUpload";
+import CvUpload, { pruneOldCvs } from "@/components/admin/CvUpload";
 import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
@@ -70,6 +70,9 @@ export default function AdminProfilePage() {
       revalidateSite(); toast.success("Profile saved!");
       setId(saved.id);
       setForm(saved);
+      // Saved successfully → safe to delete CV files the profile no longer uses
+      const removed = await pruneOldCvs(supabase, saved.cv_url);
+      if (removed) toast(`Removed ${removed} old CV file${removed > 1 ? "s" : ""}.`, { icon: "🗑️" });
     }
     setSaving(false);
   };
