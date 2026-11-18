@@ -33,22 +33,9 @@ create policy "public_read_projects"
   on public.projects for select using (true);
 
 -- ------------------------------------------------------------
--- Authenticated WRITE — only logged-in admin can mutate
+-- WRITE access is NOT granted here.
+-- Writes are restricted to the admin account(s) only — see
+-- 04_admin_rls.sql (set your email there) and 05_add_admin.sql.
+-- (A former "auth_write_*" block let ANY signed-in user write;
+--  it was removed from the live database and from this file.)
 -- ------------------------------------------------------------
-create policy "auth_write_profile"
-  on public.profile for all using (auth.role() = 'authenticated');
-
-create policy "auth_write_experience"
-  on public.experience for all using (auth.role() = 'authenticated');
-
-create policy "auth_write_education"
-  on public.education for all using (auth.role() = 'authenticated');
-
-create policy "auth_write_skills"
-  on public.skills for all using (auth.role() = 'authenticated');
-
-create policy "auth_write_certifications"
-  on public.certifications for all using (auth.role() = 'authenticated');
-
-create policy "auth_write_projects"
-  on public.projects for all using (auth.role() = 'authenticated');

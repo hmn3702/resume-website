@@ -1,6 +1,6 @@
 -- ─────────────────────────────────────────────────────────────────────────────
 -- Phase 4: Admin-only write policies
--- Replace 'your@email.com' with your actual Supabase auth email before running.
+-- Primary admin: nghia03072002@gmail.com (second admin is added in 05_add_admin.sql).
 -- ─────────────────────────────────────────────────────────────────────────────
 
 -- Replace this with your actual email address:
@@ -8,7 +8,7 @@
 
 DO $$
 DECLARE
-  admin_email TEXT := 'your@email.com';  -- ← CHANGE THIS
+  admin_email TEXT := 'nghia03072002@gmail.com';  -- primary admin account
 BEGIN
 
   -- Loop over all public tables and create INSERT/UPDATE/DELETE policies
