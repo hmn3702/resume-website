@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Profile, Database } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { revalidateSite } from "@/lib/revalidate-site";
 import ImageUpload from "@/components/admin/ImageUpload";
 import CvUpload from "@/components/admin/CvUpload";
 import { AdminTableSkeleton } from "@/components/ui/Skeleton";
@@ -66,7 +67,7 @@ export default function AdminProfilePage() {
     } else if (!saved) {
       toast.error("Save blocked — RLS policy rejected the write. Check you are signed in.");
     } else {
-      toast.success("Profile saved!");
+      revalidateSite(); toast.success("Profile saved!");
       setId(saved.id);
       setForm(saved);
     }

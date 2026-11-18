@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Certification } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { revalidateSite } from "@/lib/revalidate-site";
 import { AdminCardGridSkeleton } from "@/components/ui/Skeleton";
 
 type CertForm = Omit<Certification, "id" | "created_at">;
@@ -57,7 +58,7 @@ export default function AdminCertificationsPage() {
       ({ error } = await supabase.from("certifications").insert(payload));
     }
     if (error) toast.error(error.message);
-    else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
+    else { revalidateSite(); toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);
   };
 
@@ -65,7 +66,7 @@ export default function AdminCertificationsPage() {
     if (!deleteId) return;
     const { error } = await supabase.from("certifications").delete().eq("id", deleteId);
     if (error) toast.error(error.message);
-    else { toast.success("Deleted."); load(); }
+    else { revalidateSite(); toast.success("Deleted."); load(); }
     setDeleteId(null);
   };
 

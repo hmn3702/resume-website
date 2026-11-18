@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Education } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { revalidateSite } from "@/lib/revalidate-site";
 import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type EduForm = Omit<Education, "id" | "created_at">;
@@ -54,7 +55,7 @@ export default function AdminEducationPage() {
       ({ error } = await supabase.from("education").insert(form));
     }
     if (error) toast.error(error.message);
-    else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
+    else { revalidateSite(); toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);
   };
 
@@ -62,7 +63,7 @@ export default function AdminEducationPage() {
     if (!deleteId) return;
     const { error } = await supabase.from("education").delete().eq("id", deleteId);
     if (error) toast.error(error.message);
-    else { toast.success("Deleted."); load(); }
+    else { revalidateSite(); toast.success("Deleted."); load(); }
     setDeleteId(null);
   };
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Project } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { revalidateSite } from "@/lib/revalidate-site";
 import ImageUpload from "@/components/admin/ImageUpload";
 import { AdminCardGridSkeleton } from "@/components/ui/Skeleton";
 
@@ -80,7 +81,7 @@ export default function AdminProjectsPage() {
       ({ error } = await supabase.from("projects").insert(payload));
     }
     if (error) toast.error(error.message);
-    else { toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
+    else { revalidateSite(); toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);
   };
 
@@ -90,7 +91,7 @@ export default function AdminProjectsPage() {
       .update({ featured: !item.featured })
       .eq("id", item.id);
     if (error) toast.error(error.message);
-    else { toast.success(item.featured ? "Unfeatured." : "Featured!"); load(); }
+    else { revalidateSite(); toast.success(item.featured ? "Unfeatured." : "Featured!"); load(); }
   };
 
   const toggleVisibility = async (item: Project) => {
@@ -100,7 +101,7 @@ export default function AdminProjectsPage() {
         .update({ hidden: !item.hidden }).eq("id", item.id).select("id").single();
       if (error) throw error;
       if (!data) throw new Error("Project could not be updated. Check your admin permissions.");
-      toast.success(item.hidden ? "Project is visible." : "Project hidden from the website.");
+      revalidateSite(); toast.success(item.hidden ? "Project is visible." : "Project hidden from the website.");
       await load();
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not update project visibility.");
@@ -113,7 +114,7 @@ export default function AdminProjectsPage() {
     if (!deleteId) return;
     const { error } = await supabase.from("projects").delete().eq("id", deleteId);
     if (error) toast.error(error.message);
-    else { toast.success("Deleted."); load(); }
+    else { revalidateSite(); toast.success("Deleted."); load(); }
     setDeleteId(null);
   };
 

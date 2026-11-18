@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic';
+// ISR: serve cached HTML, refresh at most hourly (admin saves refresh instantly via /api/revalidate)
+export const revalidate = 3600;
 
 import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 async function getExperience(): Promise<Experience[]> {
   const { data } = await supabase
     .from("experience")
-    .select("*")
+    .select("*").throwOnError()
     .order("is_current", { ascending: false })
     .order("start_date", { ascending: false });
   return (data ?? []) as Experience[];

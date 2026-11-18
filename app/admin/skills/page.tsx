@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Skill } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { revalidateSite } from "@/lib/revalidate-site";
 import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type Level = Skill["level"];
@@ -54,7 +55,7 @@ export default function AdminSkillsPage() {
 
     const { error } = await supabase.from("skills").update(editForm).eq("id", id);
     if (error) toast.error(error.message);
-    else { toast.success("Saved!"); cancelEdit(); load(); }
+    else { revalidateSite(); toast.success("Saved!"); cancelEdit(); load(); }
     setSaving(false);
   };
 
@@ -64,7 +65,7 @@ export default function AdminSkillsPage() {
 
     const { error } = await supabase.from("skills").insert(addForm);
     if (error) toast.error(error.message);
-    else { toast.success("Added!"); setAddForm({ ...EMPTY }); setShowAdd(false); load(); }
+    else { revalidateSite(); toast.success("Added!"); setAddForm({ ...EMPTY }); setShowAdd(false); load(); }
     setSaving(false);
   };
 
@@ -72,7 +73,7 @@ export default function AdminSkillsPage() {
     if (!deleteId) return;
     const { error } = await supabase.from("skills").delete().eq("id", deleteId);
     if (error) toast.error(error.message);
-    else { toast.success("Deleted."); load(); }
+    else { revalidateSite(); toast.success("Deleted."); load(); }
     setDeleteId(null);
   };
 

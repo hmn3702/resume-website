@@ -1,4 +1,5 @@
-export const dynamic = 'force-dynamic';
+// ISR: serve cached HTML, refresh at most hourly (admin saves refresh instantly via /api/revalidate)
+export const revalidate = 3600;
 
 import { supabase } from "@/lib/supabase";
 import type { Profile, Project, Skill } from "@/types/database";
@@ -12,20 +13,20 @@ async function getHomeData() {
   const [profileRes, projectsRes, skillsRes] = await Promise.all([
     supabase
       .from("profile")
-      .select("*")
+      .select("*").throwOnError()
       .order("updated_at", { ascending: false })
       .limit(1)
       .single(),
     supabase
       .from("projects")
-      .select("*")
+      .select("*").throwOnError()
       .eq("featured", true)
       .eq("hidden", false)
       .order("order")
       .limit(3),
     supabase
       .from("skills")
-      .select("*")
+      .select("*").throwOnError()
       .order("category")
       .order("order"),
   ]);

@@ -26,7 +26,7 @@ const LinkedInIcon = () => (
 export default async function Footer() {
   const { data: profile } = await supabase
     .from("profile")
-    .select("*")
+    .select("*").throwOnError()
     .order("updated_at", { ascending: false })
     .limit(1)
     .single() as { data: Profile | null };

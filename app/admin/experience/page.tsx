@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Experience } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
+import { revalidateSite } from "@/lib/revalidate-site";
 import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 const EMPTY: Omit<Experience, "id" | "created_at"> = {
@@ -81,7 +82,7 @@ export default function AdminExperiencePage() {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success(editId ? "Updated!" : "Added!");
+      revalidateSite(); toast.success(editId ? "Updated!" : "Added!");
       closePanel();
       load();
     }
@@ -92,7 +93,7 @@ export default function AdminExperiencePage() {
     if (!deleteId) return;
     const { error } = await supabase.from("experience").delete().eq("id", deleteId);
     if (error) { toast.error(error.message); }
-    else { toast.success("Deleted."); load(); }
+    else { revalidateSite(); toast.success("Deleted."); load(); }
     setDeleteId(null);
   };
 

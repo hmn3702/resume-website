@@ -3,7 +3,8 @@ import { supabase } from "@/lib/supabase";
 import type { Profile } from "@/types/database";
 import ContactForm from "@/components/contact/ContactForm";
 
-export const dynamic = 'force-dynamic';
+// ISR: serve cached HTML, refresh at most hourly (admin saves refresh instantly via /api/revalidate)
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
 async function getProfile(): Promise<Profile | null> {
   const { data } = await supabase
     .from("profile")
-    .select("email, linkedin_url, github_url, location")
+    .select("email, linkedin_url, github_url, location").throwOnError()
     .order("updated_at", { ascending: false })
     .limit(1)
     .single();
