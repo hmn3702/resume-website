@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     description:
       "Data analytics, data science, and IoT projects — dashboards, ML models, and full-stack apps.",
     url: "/projects",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     title: "Projects | Nghia Ha",

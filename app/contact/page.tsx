@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Contact | Nghia Ha",
     description: "Get in touch with Nghia Ha — Data Analyst based in Brisbane, open to opportunities.",
     url: "/contact",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     title: "Contact | Nghia Ha",

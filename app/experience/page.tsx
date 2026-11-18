@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "Experience | Nghia Ha",
     description: "Professional career history of Nghia Ha — Data Analyst based in Brisbane, Australia.",
     url: "/experience",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     title: "Experience | Nghia Ha",

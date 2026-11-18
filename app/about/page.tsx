@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description:
       "Data Analyst and Data Science graduate from QUT Brisbane. Skilled in Python, SQL, Power BI, Tableau, and machine learning.",
     url: "/about",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     title: "About | Nghia Ha",
