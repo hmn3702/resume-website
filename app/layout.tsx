@@ -5,7 +5,7 @@ import Footer from "@/components/layout/Footer";
 import ThemeProvider from "@/components/layout/ThemeProvider";
 import PageTransition from "@/components/layout/PageTransition";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nghiaha.vercel.app";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://resume-website-six-mu.vercel.app";
 
 export const viewport: Viewport = {
   width: "device-width",
