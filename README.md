@@ -117,7 +117,7 @@ After the first deploy, paste the site URL into [LinkedIn Post Inspector](https:
 
 ```bash
 # Component tests (Node's built-in test runner, no extra dependencies)
-node --test tests/admin-password-reset.cjs tests/featured-projects.cjs
+npm test
 
 # Supabase connection check (reads .env.local)
 node supabase/test_connection.mjs

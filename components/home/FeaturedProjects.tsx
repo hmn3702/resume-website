@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import ProjectCover from "../projects/ProjectCover";
 import type { Project } from "@/types/database";
 
@@ -35,12 +36,14 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
               className="group min-w-0 flex flex-col gap-4 bg-slate-800 border border-white/10 rounded-2xl p-6 hover:border-accent-500/40 transition-colors duration-300"
             >
               {/* Thumbnail */}
-              <div className="w-full h-40 shrink-0 rounded-lg overflow-hidden bg-white/5">
+              <div className="relative w-full h-40 shrink-0 rounded-lg overflow-hidden bg-white/5">
                 {project.image_url ? (
-                  <img
+                  <Image
                     src={project.image_url}
                     alt={project.title}
-                    className="w-full h-full object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
+                    fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 360px"
+                    className="object-cover motion-safe:group-hover:scale-105 transition-transform duration-500"
                   />
                 ) : (
                   <ProjectCover project={project} />
