@@ -7,6 +7,7 @@ const SECTIONS = [
   { label: "Skills",         href: "/admin/skills",         table: "skills" },
   { label: "Certifications", href: "/admin/certifications", table: "certifications" },
   { label: "Projects",       href: "/admin/projects",       table: "projects" },
+  { label: "Messages",       href: "/admin/messages",       table: "contact_messages" },
 ];
 
 async function getCounts() {

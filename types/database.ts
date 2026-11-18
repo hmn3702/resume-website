@@ -232,6 +232,7 @@ export interface Database {
           name: string;
           email: string;
           message: string;
+          read: boolean;
           created_at: string;
         };
         Insert: {
@@ -239,6 +240,7 @@ export interface Database {
           name: string;
           email: string;
           message: string;
+          read?: boolean;
           created_at?: string;
         };
         Update: {
@@ -246,6 +248,7 @@ export interface Database {
           name?: string;
           email?: string;
           message?: string;
+          read?: boolean;
           created_at?: string;
         };
         Relationships: [];
@@ -266,3 +269,4 @@ export type Education     = Database["public"]["Tables"]["education"]["Row"];
 export type Skill         = Database["public"]["Tables"]["skills"]["Row"];
 export type Certification = Database["public"]["Tables"]["certifications"]["Row"];
 export type Project       = Database["public"]["Tables"]["projects"]["Row"];
+export type ContactMessage = Database["public"]["Tables"]["contact_messages"]["Row"];

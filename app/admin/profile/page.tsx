@@ -5,6 +5,7 @@ import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 import type { Profile, Database } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 import ImageUpload from "@/components/admin/ImageUpload";
+import CvUpload from "@/components/admin/CvUpload";
 import { AdminTableSkeleton } from "@/components/ui/Skeleton";
 
 type ProfileInsert = Database["public"]["Tables"]["profile"]["Insert"];
@@ -17,7 +18,7 @@ const FIELDS: { key: keyof Profile; label: string; type?: string; multiline?: bo
   { key: "location",     label: "Location" },
   { key: "linkedin_url", label: "LinkedIn URL",   type: "url" },
   { key: "github_url",   label: "GitHub URL",     type: "url" },
-  // avatar_url is handled by the ImageUpload component above
+  // avatar_url and cv_url are handled by the upload components above
 ];
 
 export default function AdminProfilePage() {
@@ -120,6 +121,14 @@ export default function AdminProfilePage() {
             </button>
           </div>
         )}
+      </div>
+
+      {/* CV upload */}
+      <div className="bg-white border border-slate-200 rounded-2xl p-5">
+        <CvUpload
+          currentUrl={form.cv_url}
+          onChange={(url) => setForm((p) => ({ ...p, cv_url: url }))}
+        />
       </div>
 
       <form onSubmit={handleSave} className="bg-white border border-slate-200 rounded-2xl p-6 space-y-5">
