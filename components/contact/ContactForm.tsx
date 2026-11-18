@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { createSupabaseBrowserClient } from "@/lib/supabase-browser";
 
 interface FormState {
   name: string;
   email: string;
   message: string;
+  website: string; // honeypot — hidden from people, bots tend to fill it
 }
 
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
-  const [form, setForm] = useState<FormState>({ name: "", email: "", message: "" });
+  const [form, setForm] = useState<FormState>({ name: "", email: "", message: "", website: "" });
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -25,17 +25,19 @@ export default function ContactForm() {
     setStatus("sending");
     setErrorMsg("");
 
-    const supabase = createSupabaseBrowserClient();
-    const { error } = await supabase
-      .from("contact_messages")
-      .insert({ name: form.name, email: form.email, message: form.message });
-
-    if (error) {
-      setErrorMsg(error.message);
-      setStatus("error");
-    } else {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error ?? "Something went wrong. Please try again.");
       setStatus("success");
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "", website: "" });
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+      setStatus("error");
     }
   };
 
@@ -51,7 +53,7 @@ export default function ContactForm() {
           Name
         </label>
         <input
-          id="name" name="name" type="text" required
+          id="name" name="name" type="text" required maxLength={100}
           placeholder="Jane Smith"
           value={form.name} onChange={handleChange}
           className={inputClass}
@@ -63,7 +65,7 @@ export default function ContactForm() {
           Email
         </label>
         <input
-          id="email" name="email" type="email" required
+          id="email" name="email" type="email" required maxLength={254}
           placeholder="jane@example.com"
           value={form.email} onChange={handleChange}
           className={inputClass}
@@ -75,11 +77,17 @@ export default function ContactForm() {
           Message
         </label>
         <textarea
-          id="message" name="message" required rows={5}
+          id="message" name="message" required rows={5} maxLength={5000}
           placeholder="Hi Nghia, I'd love to connect about..."
           value={form.message} onChange={handleChange}
           className={`${inputClass} resize-none`}
         />
+      </div>
+
+      {/* Honeypot: off-screen, skipped by keyboard and screen readers */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-10000px", width: 1, height: 1, overflow: "hidden" }}>
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" value={form.website} onChange={handleChange} />
       </div>
 
       {status === "success" && (
