@@ -6,7 +6,7 @@ interface FormState {
   name: string;
   email: string;
   message: string;
-  website: string; // honeypot — hidden from people, bots tend to fill it
+  website: string; // honeypot - hidden from people, bots tend to fill it
 }
 
 type Status = "idle" | "sending" | "success" | "error";

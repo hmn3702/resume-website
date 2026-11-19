@@ -9,12 +9,12 @@ import ProjectsGrid from "@/components/projects/ProjectsGrid";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Data analytics, data science, and IoT projects by Nghia Ha — including dashboards, machine learning models, and full-stack applications built with Python, SQL, Power BI, and Next.js.",
+    "Data analytics, data science, and IoT projects by Nghia Ha - including dashboards, machine learning models, and full-stack applications built with Python, SQL, Power BI, and Next.js.",
   keywords: ["projects", "portfolio", "Data Analytics", "Python", "SQL", "Power BI", "Next.js", "Nghia Ha"],
   openGraph: {
     title: "Projects | Nghia Ha",
     description:
-      "Data analytics, data science, and IoT projects — dashboards, ML models, and full-stack apps.",
+      "Data analytics, data science, and IoT projects - dashboards, ML models, and full-stack apps.",
     url: "/projects",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },

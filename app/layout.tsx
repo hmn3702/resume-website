@@ -72,7 +72,7 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider>
           <div className="flex min-h-screen flex-col">
-            {/* Skip to main content — visible only on keyboard focus */}
+            {/* Skip to main content - visible only on keyboard focus */}
             <a href="#main-content" className="skip-link">
               Skip to main content
             </a>

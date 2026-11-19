@@ -25,7 +25,7 @@ export function createSupabaseServerClient() {
             );
           } catch {
             // setAll is called from Server Components where cookie writes are
-            // not allowed — the middleware will handle refreshing the session.
+            // not allowed - the middleware will handle refreshing the session.
           }
         },
       },

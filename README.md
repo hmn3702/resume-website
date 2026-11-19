@@ -1,4 +1,4 @@
-# Nghia Ha — Personal Resume Website
+# Nghia Ha - Personal Resume Website
 
 **Live:** [resume-website-six-mu.vercel.app](https://resume-website-six-mu.vercel.app)
 
@@ -25,6 +25,7 @@ A full-stack resume and portfolio site for a Brisbane-based Data Analyst, built 
 **Admin CMS (`/admin`)**
 - Manage profile (avatar, CV PDF, bio, links), experience, education, skills, certifications and projects
 - Feature or hide projects without deleting them
+- Case-study page per project (`/projects/[slug]`): problem, data, approach, insights, outcome and a screenshot gallery, edited from a separate "Case study" button
 - Contact inbox with read/unread state, reply-by-email and delete
 - Password reset by email; optional "Stay signed in"
 
@@ -67,6 +68,8 @@ npm install
    | `06_project_visibility.sql` | `hidden` flag on projects; only admins see hidden ones |
    | `07_contact_messages.sql` | Contact inbox table; anon can insert only, admins read/update/delete |
    | `08_storage_admin_only.sql` | Storage policies for the `resume-assets` bucket (create the bucket first, step 4) |
+| `09_project_case_studies.sql` | Case-study columns on projects (`slug`, sections, `gallery`); backfills slugs |
+| `10_projects_no_em_dash.sql` | Trigger: em dashes in project content are saved as `-` |
 
    Admin emails are hard-coded in `04`–`08` and in `lib/admin.ts`. If you change them, change them everywhere.
 4. **Storage:** create a **public** bucket named `resume-assets`, then run `08_storage_admin_only.sql`. Avatars, project images and CVs are stored there in `avatars/`, `projects/` and `cv/`.
@@ -144,7 +147,7 @@ lib/
   supabase*.ts             # Supabase clients (cached public, browser, server, middleware)
   admin.ts                 # Admin email allow-list
   revalidate-site.ts       # Client helper for /api/revalidate
-supabase/                  # SQL migrations 01–08 and tests
+supabase/                  # SQL migrations 01–10 and tests
 types/database.ts          # Database types
 tests/                     # Node test runner tests
 ```

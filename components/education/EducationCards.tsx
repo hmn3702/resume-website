@@ -36,7 +36,7 @@ export default function EducationCards({ education }: Props) {
           <div className="flex-1 space-y-1.5">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
               <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">
-                {edu.degree} — <span className="text-accent-600 dark:text-accent-400">{edu.field}</span>
+                {edu.degree} - <span className="text-accent-600 dark:text-accent-400">{edu.field}</span>
               </h3>
               <span className="text-sm text-slate-500 dark:text-slate-400 shrink-0 tabular-nums">
                 {edu.start_year} – {edu.end_year ?? "Present"}

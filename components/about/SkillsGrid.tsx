@@ -7,7 +7,7 @@ interface Props {
   skills: Skill[];
 }
 
-// Category icon map — emoji fallback, easy to swap for SVG icons later
+// Category icon map - emoji fallback, easy to swap for SVG icons later
 const CATEGORY_ICON: Record<string, string> = {
   "Data & Analysis": "📊",
   "Visualisation":   "📈",
@@ -69,7 +69,7 @@ export default function SkillsGrid({ skills }: Props) {
 
   return (
     <div className="space-y-4">
-      {/* Legend — sits above the grid, not inside a card */}
+      {/* Legend - sits above the grid, not inside a card */}
       <p className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
         {[
           { label: "Beginner",     filled: 1 },

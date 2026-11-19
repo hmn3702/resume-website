@@ -227,7 +227,7 @@ export default function AdminLoginPage() {
         </div>
 
         <p className="mt-6 text-center text-xs text-slate-600">
-          Not a public portal — admin access only.
+          Not a public portal - admin access only.
         </p>
       </div>
     </div>

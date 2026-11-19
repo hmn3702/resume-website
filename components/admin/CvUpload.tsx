@@ -33,7 +33,7 @@ export async function pruneOldCvs(
   keepUrl: string | null | undefined
 ): Promise<number> {
   const keepPath = keepUrl ? cvPathFromUrl(keepUrl) : null;
-  // Safety: the saved URL points into our bucket but couldn't be parsed — don't touch anything.
+  // Safety: the saved URL points into our bucket but couldn't be parsed - don't touch anything.
   if (keepUrl && keepUrl.includes(`/${BUCKET}/`) && !keepPath) return 0;
 
   const { data, error } = await supabase.storage.from(BUCKET).list(CV_FOLDER, { limit: 1000 });
@@ -117,7 +117,7 @@ export default function CvUpload({ currentUrl, onChange }: Props) {
             View current CV
           </a>
         ) : (
-          <p className="text-sm text-slate-400">No CV uploaded — the &quot;Download CV&quot; buttons are hidden.</p>
+          <p className="text-sm text-slate-400">No CV uploaded - the &quot;Download CV&quot; buttons are hidden.</p>
         )}
 
         <button

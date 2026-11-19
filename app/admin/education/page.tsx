@@ -106,7 +106,7 @@ export default function AdminEducationPage() {
                 <tr key={item.id} className="hover:bg-slate-50 transition-colors">
                   <td className="px-5 py-3.5 font-medium text-slate-800">{item.institution}</td>
                   <td className="px-5 py-3.5 text-slate-600">{item.degree} in {item.field}</td>
-                  <td className="px-5 py-3.5 text-slate-500">{item.start_year} — {item.end_year ?? "Present"}</td>
+                  <td className="px-5 py-3.5 text-slate-500">{item.start_year} - {item.end_year ?? "Present"}</td>
                   <td className="px-5 py-3.5 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button onClick={() => openEdit(item)} className="text-xs text-slate-600 hover:text-teal-600 font-medium transition-colors">Edit</button>

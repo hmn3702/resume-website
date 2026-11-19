@@ -1,5 +1,5 @@
 -- ============================================================
--- Phase 2 — Step 1: Create all tables
+-- Phase 2 - Step 1: Create all tables
 -- Run this in: Supabase Dashboard → SQL Editor
 -- ============================================================
 

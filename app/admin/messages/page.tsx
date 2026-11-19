@@ -38,7 +38,7 @@ export default function AdminMessagesPage() {
       .eq("id", id)
       .select("id");
     if (error) { toast.error(error.message); return; }
-    if (!data?.length) { toast.error("Update blocked — check the admin RLS policy."); return; }
+    if (!data?.length) { toast.error("Update blocked - check the admin RLS policy."); return; }
     setItems((prev) => prev.map((m) => (m.id === id ? { ...m, read } : m)));
   };
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ProjectCover from "./ProjectCover";
 import type { Project } from "@/types/database";
+import { hasCaseStudy } from "@/lib/case-study";
 
 interface Props {
   projects: Project[];
@@ -67,6 +68,7 @@ export default function ProjectsGrid({ projects }: Props) {
     >
       {sorted.map((project, index) => {
         const spotlight = index === 0 && project.featured;
+        const caseStudyHref = hasCaseStudy(project) ? `/projects/${project.slug}` : null;
 
         return (
           <motion.article
@@ -103,7 +105,13 @@ export default function ProjectsGrid({ projects }: Props) {
             {/* Card body */}
             <div className={`p-6 sm:p-8 flex flex-col gap-4 flex-1 min-w-0 ${spotlight ? "md:justify-center md:p-10" : ""}`}>
               <h2 className={`font-display font-semibold text-slate-900 dark:text-slate-50 leading-tight break-words ${spotlight ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
-                {project.title}
+                {caseStudyHref ? (
+                  <Link href={caseStudyHref} className="focus-ring rounded-lg hover:text-accent-600 dark:hover:text-accent-400 transition-colors">
+                    {project.title}
+                  </Link>
+                ) : (
+                  project.title
+                )}
               </h2>
 
               <p className="text-[17px] text-slate-600 dark:text-slate-400 leading-relaxed break-words">
@@ -125,14 +133,19 @@ export default function ProjectsGrid({ projects }: Props) {
               )}
 
               {/* Action buttons */}
-              {(project.live_url || project.github_url) && (
+              {(caseStudyHref || project.live_url || project.github_url) && (
                 <div className="flex flex-wrap items-center gap-3 pt-4 mt-auto border-t border-slate-100 dark:border-slate-800">
+                  {caseStudyHref && (
+                    <Link href={caseStudyHref} className="focus-ring button-primary text-sm">
+                      Read case study
+                    </Link>
+                  )}
                   {project.live_url && (
                     <a
                       href={project.live_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="focus-ring button-primary text-sm"
+                      className={`focus-ring ${caseStudyHref ? "button-secondary" : "button-primary"} text-sm`}
                     >
                       <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}

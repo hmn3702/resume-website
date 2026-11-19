@@ -3,7 +3,7 @@ import { ImageResponse } from "next/og";
 // Edge runtime: the Node build of @vercel/og fails to prerender on Windows (Next 14.2.5)
 export const runtime = "edge";
 
-// Favicon — mirrors the "NH." wordmark in the navbar
+// Favicon - mirrors the "NH." wordmark in the navbar
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 

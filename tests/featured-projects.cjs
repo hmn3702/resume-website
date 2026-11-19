@@ -12,6 +12,7 @@ Module._extensions['.tsx'] = (loaded, file) => {
     compilerOptions: { jsx: ts.JsxEmit.ReactJSX, module: ts.ModuleKind.CommonJS, esModuleInterop: true },
   }).outputText, file);
 };
+Module._extensions['.ts'] = Module._extensions['.tsx'];
 
 const filename = path.resolve('components/home/FeaturedProjects.tsx');
 const component = new Module(filename, module);

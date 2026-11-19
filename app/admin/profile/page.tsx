@@ -65,7 +65,7 @@ export default function AdminProfilePage() {
     if (error) {
       toast.error(`Save failed: ${error.message}`);
     } else if (!saved) {
-      toast.error("Save blocked — RLS policy rejected the write. Check you are signed in.");
+      toast.error("Save blocked - RLS policy rejected the write. Check you are signed in.");
     } else {
       revalidateSite(); toast.success("Profile saved!");
       setId(saved.id);

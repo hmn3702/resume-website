@@ -55,7 +55,7 @@ export default function OgImage() {
           </span>
         </div>
 
-        {/* Skills row — outlined pills like .button-secondary */}
+        {/* Skills row - outlined pills like .button-secondary */}
         <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginTop: 56 }}>
           {["Python", "SQL", "Power BI", "Tableau", "Machine Learning"].map((skill) => (
             <div

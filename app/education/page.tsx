@@ -10,7 +10,7 @@ import CertificationsGrid from "@/components/education/CertificationsGrid";
 export const metadata: Metadata = {
   title: "Education & Certifications",
   description:
-    "Academic background and professional certifications of Nghia Ha — Master of IT (Data Science) at QUT Brisbane and 13+ industry certifications in data analytics, cloud, and IoT.",
+    "Academic background and professional certifications of Nghia Ha - Master of IT (Data Science) at QUT Brisbane and 13+ industry certifications in data analytics, cloud, and IoT.",
   keywords: ["education", "certifications", "QUT", "Data Science", "Master", "Brisbane", "Nghia Ha"],
   openGraph: {
     title: "Education & Certifications | Nghia Ha",

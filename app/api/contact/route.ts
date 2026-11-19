@@ -27,7 +27,7 @@ async function notifyByEmail(name: string, email: string, message: string) {
   const apiKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_NOTIFY_EMAIL;
   if (!apiKey || !to) {
-    console.warn("[contact] RESEND_API_KEY or CONTACT_NOTIFY_EMAIL not set — skipping email");
+    console.warn("[contact] RESEND_API_KEY or CONTACT_NOTIFY_EMAIL not set - skipping email");
     return;
   }
 
@@ -40,7 +40,7 @@ async function notifyByEmail(name: string, email: string, message: string) {
       to: [to],
       reply_to: email, // "Reply" in your mail app goes straight to the sender
       subject: `New message from ${name} via your portfolio`,
-      text: `${name} <${email}> wrote:\n\n${message}\n\n— Inbox: ${siteUrl}/admin/messages`,
+      text: `${name} <${email}> wrote:\n\n${message}\n\n- Inbox: ${siteUrl}/admin/messages`,
       html: `
         <p><strong>${escapeHtml(name)}</strong> &lt;${escapeHtml(email)}&gt; wrote:</p>
         <blockquote style="margin:16px 0;padding:12px 16px;border-left:3px solid #0066cc;background:#f5f5f7;white-space:pre-wrap">${escapeHtml(message)}</blockquote>

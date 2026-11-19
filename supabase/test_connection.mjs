@@ -52,7 +52,7 @@ async function test() {
     }
   }
 
-  console.log(allOk ? "\n🎉  All tables OK!" : "\n⚠️   Some tables failed — check errors above.");
+  console.log(allOk ? "\n🎉  All tables OK!" : "\n⚠️   Some tables failed - check errors above.");
 }
 
 test();

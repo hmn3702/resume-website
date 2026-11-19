@@ -6,9 +6,16 @@ import type { Project } from "@/types/database";
 import toast, { Toaster } from "react-hot-toast";
 import { revalidateSite } from "@/lib/revalidate-site";
 import ImageUpload from "@/components/admin/ImageUpload";
+import GalleryUpload from "@/components/admin/GalleryUpload";
 import { AdminCardGridSkeleton } from "@/components/ui/Skeleton";
+import { CASE_STUDY_SECTIONS, hasCaseStudy, slugify, SLUG_PATTERN, type CaseStudyKey } from "@/lib/case-study";
 
-type ProjectForm = Omit<Project, "id" | "created_at" | "order" | "hidden"> & { tech_stack_raw: string };
+type ProjectForm = Omit<Project, "id" | "created_at" | "order" | "hidden" | CaseStudyKey | "gallery"> & { tech_stack_raw: string };
+type CaseStudyForm = Pick<Project, CaseStudyKey | "gallery">;
+
+const EMPTY_CASE_STUDY: CaseStudyForm = {
+  problem: null, data: null, approach: null, insights: null, outcome: null, gallery: [],
+};
 
 const EMPTY: ProjectForm = {
   title: "",
@@ -19,6 +26,7 @@ const EMPTY: ProjectForm = {
   github_url: null,
   image_url: null,
   featured: false,
+  slug: "",
 };
 
 export default function AdminProjectsPage() {
@@ -31,6 +39,12 @@ export default function AdminProjectsPage() {
   const [saving, setSaving] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [visibilitySaving, setVisibilitySaving] = useState<string | null>(null);
+  // Auto-fill the slug from the title until the user edits the slug by hand
+  const [slugTouched, setSlugTouched] = useState(false);
+  // Separate case-study editor
+  const [csProject, setCsProject] = useState<Project | null>(null);
+  const [csForm, setCsForm] = useState<CaseStudyForm>({ ...EMPTY_CASE_STUDY });
+  const [csSaving, setCsSaving] = useState(false);
 
   async function load() {
     const { data } = await supabase
@@ -44,7 +58,7 @@ export default function AdminProjectsPage() {
 
   useEffect(() => { load(); }, []);
 
-  const openAdd = () => { setEditId(null); setForm({ ...EMPTY }); setPanelOpen(true); };
+  const openAdd = () => { setEditId(null); setForm({ ...EMPTY }); setSlugTouched(false); setPanelOpen(true); };
   const openEdit = (item: Project) => {
     setEditId(item.id);
     setForm({
@@ -56,10 +70,40 @@ export default function AdminProjectsPage() {
       github_url: item.github_url,
       image_url: item.image_url,
       featured: item.featured,
+      slug: item.slug,
     });
+    setSlugTouched(true);
     setPanelOpen(true);
   };
   const closePanel = () => { setPanelOpen(false); setEditId(null); };
+
+  const openCaseStudy = (item: Project) => {
+    setCsProject(item);
+    setCsForm({
+      problem: item.problem, data: item.data, approach: item.approach,
+      insights: item.insights, outcome: item.outcome, gallery: item.gallery ?? [],
+    });
+  };
+  const closeCaseStudy = () => setCsProject(null);
+
+  const handleCaseStudySave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!csProject) return;
+    setCsSaving(true);
+    const payload: CaseStudyForm = {
+      problem: csForm.problem?.trim() || null,
+      data: csForm.data?.trim() || null,
+      approach: csForm.approach?.trim() || null,
+      insights: csForm.insights?.trim() || null,
+      outcome: csForm.outcome?.trim() || null,
+      gallery: csForm.gallery,
+    };
+    const { data, error } = await supabase.from("projects").update(payload).eq("id", csProject.id).select("id");
+    if (error) toast.error(error.message);
+    else if (!data?.length) toast.error("Save blocked - check your admin permissions.");
+    else { revalidateSite(); toast.success("Case study saved!"); closeCaseStudy(); load(); }
+    setCsSaving(false);
+  };
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,7 +116,13 @@ export default function AdminProjectsPage() {
       github_url: form.github_url || null,
       image_url: form.image_url || null,
       featured: form.featured,
+      slug: slugify(form.slug || form.title),
     };
+    if (!payload.slug) {
+      toast.error("Please enter a URL slug (letters and numbers).");
+      setSaving(false);
+      return;
+    }
     let error;
     if (editId) {
 
@@ -80,7 +130,7 @@ export default function AdminProjectsPage() {
     } else {
       ({ error } = await supabase.from("projects").insert(payload));
     }
-    if (error) toast.error(error.message);
+    if (error) toast.error(error.code === "23505" ? "That URL slug is already used by another project." : error.message);
     else { revalidateSite(); toast.success(editId ? "Updated!" : "Added!"); closePanel(); load(); }
     setSaving(false);
   };
@@ -161,6 +211,7 @@ export default function AdminProjectsPage() {
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="font-semibold text-slate-900">{item.title}</p>
                     {item.hidden && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">Hidden</span>}
+                    {hasCaseStudy(item) && <span className="px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-medium">Case study</span>}
                     {item.featured && (
                       <span className="px-1.5 py-0.5 rounded-full bg-teal-100 text-teal-700 text-xs font-medium">
                         Featured
@@ -187,6 +238,7 @@ export default function AdminProjectsPage() {
               <div className="flex items-center gap-3 text-xs text-slate-400">
                 {item.live_url && <a href={item.live_url} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors">Live →</a>}
                 {item.github_url && <a href={item.github_url} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors">GitHub →</a>}
+                {!item.hidden && hasCaseStudy(item) && <a href={`/projects/${item.slug}`} target="_blank" rel="noopener noreferrer" className="hover:text-teal-600 transition-colors">Case study page →</a>}
               </div>
 
               {/* Actions */}
@@ -208,6 +260,7 @@ export default function AdminProjectsPage() {
                   {item.featured ? "★ Unfeature" : "☆ Feature"}
                 </button>
                 <button onClick={() => openEdit(item)} className="flex-1 text-xs text-slate-600 hover:text-teal-600 font-medium py-1 transition-colors">Edit</button>
+                <button onClick={() => openCaseStudy(item)} className="flex-1 text-xs text-slate-600 hover:text-teal-600 font-medium py-1 transition-colors">Case study</button>
                 <button onClick={() => setDeleteId(item.id)} className="flex-1 text-xs text-slate-400 hover:text-red-500 font-medium py-1 transition-colors">Delete</button>
               </div>
             </div>
@@ -232,7 +285,24 @@ export default function AdminProjectsPage() {
             <form onSubmit={handleSave} className="flex-1 px-6 py-5 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Title <span className="text-red-400">*</span></label>
-                <input required value={form.title} onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))} className={inputClass} />
+                <input required value={form.title} onChange={(e) => { const title = e.target.value; setForm((p) => ({ ...p, title, slug: slugTouched ? p.slug : slugify(title) })); }} className={inputClass} />
+              </div>
+
+              <div>
+                <label htmlFor="project-slug" className="block text-sm font-medium text-slate-700 mb-1">URL slug <span className="text-red-400">*</span></label>
+                <div className="flex items-center rounded-xl border border-slate-200 focus-within:ring-2 focus-within:ring-teal-500 overflow-hidden">
+                  <span className="pl-4 pr-1 text-sm text-slate-400 select-none">/projects/</span>
+                  <input
+                    id="project-slug"
+                    required
+                    pattern={SLUG_PATTERN}
+                    title="Lowercase letters, numbers and single dashes, e.g. coffee-shop-sales"
+                    value={form.slug}
+                    onChange={(e) => { setSlugTouched(true); setForm((p) => ({ ...p, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })); }}
+                    className="flex-1 min-w-0 py-2.5 pr-4 text-sm text-slate-900 bg-white focus:outline-none"
+                  />
+                </div>
+                {editId && <p className="text-xs text-slate-400 mt-1">Changing the slug breaks links you have already shared.</p>}
               </div>
 
               <div>
@@ -288,6 +358,67 @@ export default function AdminProjectsPage() {
                   {saving ? "Saving…" : editId ? "Update" : "Add"}
                 </button>
                 <button type="button" onClick={closePanel} className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50 transition-colors">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </aside>
+        </div>
+      )}
+
+      {/* Case-study panel */}
+      {csProject && (
+        <div className="fixed inset-0 z-50 flex">
+          <div className="flex-1 bg-black/40" onClick={closeCaseStudy} />
+          <aside className="w-[560px] bg-white shadow-2xl flex flex-col overflow-y-auto">
+            <div className="flex items-start justify-between gap-4 px-6 py-4 border-b border-slate-200">
+              <div className="min-w-0">
+                <h3 className="font-semibold text-slate-900">Case study</h3>
+                <p className="text-xs text-slate-500 truncate">{csProject.title}</p>
+              </div>
+              <button onClick={closeCaseStudy} aria-label="Close" className="text-slate-400 hover:text-slate-700">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <form onSubmit={handleCaseStudySave} className="flex-1 px-6 py-5 space-y-4">
+              <p className="text-xs text-slate-500">
+                Fill any section to publish{" "}
+                {csProject.hidden ? (
+                  <span className="font-medium">/projects/{csProject.slug}</span>
+                ) : (
+                  <a href={`/projects/${csProject.slug}`} target="_blank" rel="noopener noreferrer" className="font-medium text-teal-600 hover:underline">/projects/{csProject.slug}</a>
+                )}
+                . Leave a blank line for a new paragraph; start a line with &quot;- &quot; for a bullet point.
+                {csProject.hidden && " This project is hidden, so the page is not public yet."}
+              </p>
+
+              {CASE_STUDY_SECTIONS.map(({ key, label, hint }) => (
+                <div key={key}>
+                  <label htmlFor={`cs-${key}`} className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
+                  <textarea
+                    id={`cs-${key}`}
+                    rows={5}
+                    placeholder={hint}
+                    value={csForm[key] ?? ""}
+                    onChange={(e) => setCsForm((p) => ({ ...p, [key]: e.target.value }))}
+                    className={`${inputClass} resize-y`}
+                  />
+                </div>
+              ))}
+
+              <GalleryUpload
+                value={csForm.gallery}
+                onChange={(gallery) => setCsForm((p) => ({ ...p, gallery }))}
+              />
+
+              <div className="pt-2 flex gap-3">
+                <button type="submit" disabled={csSaving} className="flex-1 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-600 disabled:opacity-60 text-white text-sm font-semibold transition-colors">
+                  {csSaving ? "Saving…" : "Save case study"}
+                </button>
+                <button type="button" onClick={closeCaseStudy} className="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50 transition-colors">
                   Cancel
                 </button>
               </div>

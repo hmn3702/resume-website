@@ -1,5 +1,5 @@
 -- ============================================================
--- Phase 2 — Step 3: Seed data (Ha Minh Nghia)
+-- Phase 2 - Step 3: Seed data (Ha Minh Nghia)
 -- Run AFTER 01_create_tables.sql and 02_rls.sql
 -- ============================================================
 
@@ -147,7 +147,7 @@ values
   ('FPT Software Academy Embedded Course Certificate',     'FPT Software',       2024, null);
 
 -- ------------------------------------------------------------
--- projects  (add your own — placeholder row so page doesn't show empty)
+-- projects  (add your own - placeholder row so page doesn't show empty)
 -- ------------------------------------------------------------
 -- Uncomment and fill in when you have projects to add:
 --

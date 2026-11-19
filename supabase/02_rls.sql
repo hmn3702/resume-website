@@ -1,5 +1,5 @@
 -- ============================================================
--- Phase 2 — Step 2: Row Level Security
+-- Phase 2 - Step 2: Row Level Security
 -- Run AFTER 01_create_tables.sql
 -- ============================================================
 
@@ -12,7 +12,7 @@ alter table public.certifications enable row level security;
 alter table public.projects       enable row level security;
 
 -- ------------------------------------------------------------
--- Public READ — anyone (including the website) can read
+-- Public READ - anyone (including the website) can read
 -- ------------------------------------------------------------
 create policy "public_read_profile"
   on public.profile for select using (true);
@@ -34,7 +34,7 @@ create policy "public_read_projects"
 
 -- ------------------------------------------------------------
 -- WRITE access is NOT granted here.
--- Writes are restricted to the admin account(s) only — see
+-- Writes are restricted to the admin account(s) only - see
 -- 04_admin_rls.sql (set your email there) and 05_add_admin.sql.
 -- (A former "auth_write_*" block let ANY signed-in user write;
 --  it was removed from the live database and from this file.)

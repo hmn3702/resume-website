@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import ProjectCover from "../projects/ProjectCover";
 import type { Project } from "@/types/database";
+import { hasCaseStudy } from "../../lib/case-study";
 
 export default function FeaturedProjects({ projects }: { projects: Project[] }) {
   if (!projects.length) return null;
@@ -53,7 +54,13 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
               {/* Content */}
               <div className="flex-1 space-y-2">
                 <h3 className="font-semibold text-white text-base leading-snug [overflow-wrap:anywhere]">
-                  {project.title}
+                  {hasCaseStudy(project) ? (
+                    <Link href={`/projects/${project.slug}`} className="hover:text-accent-300 transition-colors">
+                      {project.title}
+                    </Link>
+                  ) : (
+                    project.title
+                  )}
                 </h3>
                 <p className="text-[17px] text-slate-400 line-clamp-2 leading-relaxed [overflow-wrap:anywhere]">
                   {project.description}
@@ -81,6 +88,14 @@ export default function FeaturedProjects({ projects }: { projects: Project[] }) 
 
               {/* Links */}
               <div className="flex items-center gap-4 pt-1 border-t border-white/10">
+                {hasCaseStudy(project) && (
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="flex items-center gap-1.5 text-xs text-accent-400 hover:text-accent-300 font-normal transition-colors py-3 min-h-[44px]"
+                  >
+                    Case study →
+                  </Link>
+                )}
                 {project.live_url && (
                   <a
                     href={project.live_url}

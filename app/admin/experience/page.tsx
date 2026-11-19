@@ -143,7 +143,7 @@ export default function AdminExperiencePage() {
                   <td className="px-5 py-3.5 font-medium text-slate-800">{item.role}</td>
                   <td className="px-5 py-3.5 text-slate-600">{item.company}</td>
                   <td className="px-5 py-3.5 text-slate-500 whitespace-nowrap">
-                    {item.start_date} — {item.is_current ? "Present" : (item.end_date ?? "?")}
+                    {item.start_date} - {item.is_current ? "Present" : (item.end_date ?? "?")}
                   </td>
                   <td className="px-5 py-3.5">
                     {item.is_current && (

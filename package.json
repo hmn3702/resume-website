@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "node --test tests/admin-password-reset.cjs tests/featured-projects.cjs"
+    "test": "node --test tests/admin-password-reset.cjs tests/featured-projects.cjs tests/case-study.cjs"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

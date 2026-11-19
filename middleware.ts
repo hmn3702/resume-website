@@ -4,7 +4,7 @@ import { createMiddlewareClient } from "@/lib/supabase-middleware";
 export async function middleware(request: NextRequest) {
   const { supabase, getResponse } = createMiddlewareClient(request);
 
-  // Refresh session — keeps the session alive and writes refreshed tokens to cookies.
+  // Refresh session - keeps the session alive and writes refreshed tokens to cookies.
   const { data: { user } } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;

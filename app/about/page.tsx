@@ -10,7 +10,7 @@ import LanguagesSection from "@/components/about/LanguagesSection";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Nghia Ha — Data Analyst and Data Science graduate from QUT Brisbane with an IoT engineering background. Skills in Python, SQL, Power BI, Tableau, and machine learning.",
+    "About Nghia Ha - Data Analyst and Data Science graduate from QUT Brisbane with an IoT engineering background. Skills in Python, SQL, Power BI, Tableau, and machine learning.",
   keywords: ["Data Analyst", "Python", "SQL", "Power BI", "Tableau", "IoT", "QUT Brisbane", "skills"],
   openGraph: {
     title: "About | Nghia Ha",

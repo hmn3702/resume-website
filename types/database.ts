@@ -1,5 +1,5 @@
 /**
- * Supabase database types — matches the schema in supabase/01_create_tables.sql
+ * Supabase database types - matches the schema in supabase/01_create_tables.sql
  *
  * To regenerate from your live project run:
  *   npx supabase gen types typescript --project-id YOUR_PROJECT_ID > types/database.ts
@@ -197,6 +197,13 @@ export interface Database {
           hidden: boolean;
           order: number;
           created_at: string;
+          slug: string;
+          problem: string | null;
+          data: string | null;
+          approach: string | null;
+          insights: string | null;
+          outcome: string | null;
+          gallery: string[];
         };
         Insert: {
           id?: string;
@@ -210,6 +217,13 @@ export interface Database {
           hidden?: boolean;
           order?: number;
           created_at?: string;
+          slug: string;
+          problem?: string | null;
+          data?: string | null;
+          approach?: string | null;
+          insights?: string | null;
+          outcome?: string | null;
+          gallery?: string[];
         };
         Update: {
           id?: string;
@@ -223,6 +237,13 @@ export interface Database {
           hidden?: boolean;
           order?: number;
           created_at?: string;
+          slug?: string;
+          problem?: string | null;
+          data?: string | null;
+          approach?: string | null;
+          insights?: string | null;
+          outcome?: string | null;
+          gallery?: string[];
         };
         Relationships: [];
       };

@@ -9,6 +9,6 @@ export async function revalidateSite() {
     const res = await fetch("/api/revalidate", { method: "POST" });
     if (!res.ok) throw new Error(String(res.status));
   } catch {
-    toast("Saved — the public site will update within an hour.", { icon: "⏳" });
+    toast("Saved - the public site will update within an hour.", { icon: "⏳" });
   }
 }

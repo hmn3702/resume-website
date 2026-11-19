@@ -9,17 +9,17 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Nghia Ha — Data Analyst based in Brisbane, Australia. Open to data analyst, data science, and analytics engineering roles.",
+    "Get in touch with Nghia Ha - Data Analyst based in Brisbane, Australia. Open to data analyst, data science, and analytics engineering roles.",
   keywords: ["contact", "hire", "Data Analyst", "Brisbane", "Nghia Ha", "open to work"],
   openGraph: {
     title: "Contact | Nghia Ha",
-    description: "Get in touch with Nghia Ha — Data Analyst based in Brisbane, open to opportunities.",
+    description: "Get in touch with Nghia Ha - Data Analyst based in Brisbane, open to opportunities.",
     url: "/contact",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     title: "Contact | Nghia Ha",
-    description: "Get in touch with Nghia Ha — Data Analyst based in Brisbane.",
+    description: "Get in touch with Nghia Ha - Data Analyst based in Brisbane.",
   },
   alternates: { canonical: "/contact" },
 };
@@ -89,7 +89,7 @@ export default async function ContactPage() {
     <div className="relative section-container py-20">
       <div className="grid lg:grid-cols-2 gap-16 items-start max-w-5xl">
 
-        {/* Left — info */}
+        {/* Left - info */}
         <div className="space-y-8">
           <div className="space-y-4">
             <p className="eyebrow">
@@ -132,7 +132,7 @@ export default async function ContactPage() {
           )}
         </div>
 
-        {/* Right — form */}
+        {/* Right - form */}
         <div className="card p-6 sm:p-8">
           <h2 className="text-lg font-semibold text-slate-900 dark:text-slate-50 mb-6">Send a message</h2>
           <ContactForm />

@@ -9,17 +9,17 @@ import ExperienceTimeline from "@/components/experience/ExperienceTimeline";
 export const metadata: Metadata = {
   title: "Experience",
   description:
-    "Work experience and professional history of Nghia Ha — Data Analyst based in Brisbane, Australia. Roles across hospitality and tech building customer-facing and analytical skills.",
+    "Work experience and professional history of Nghia Ha - Data Analyst based in Brisbane, Australia. Roles across hospitality and tech building customer-facing and analytical skills.",
   keywords: ["work experience", "Data Analyst", "Brisbane", "career history", "Nghia Ha"],
   openGraph: {
     title: "Experience | Nghia Ha",
-    description: "Professional career history of Nghia Ha — Data Analyst based in Brisbane, Australia.",
+    description: "Professional career history of Nghia Ha - Data Analyst based in Brisbane, Australia.",
     url: "/experience",
     images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Nghia Ha | Data Analyst" }],
   },
   twitter: {
     title: "Experience | Nghia Ha",
-    description: "Professional career history of Nghia Ha — Data Analyst based in Brisbane.",
+    description: "Professional career history of Nghia Ha - Data Analyst based in Brisbane.",
   },
   alternates: { canonical: "/experience" },
 };
@@ -47,7 +47,7 @@ export default async function ExperiencePage() {
           Work <span>Experience</span>
         </h1>
         <p className="text-slate-500 dark:text-slate-400">
-          {experiences.length} role{experiences.length !== 1 ? "s" : ""} across hospitality and tech —
+          {experiences.length} role{experiences.length !== 1 ? "s" : ""} across hospitality and tech -
           building communication, teamwork, and customer-facing skills alongside my data science studies.
         </p>
       </div>
